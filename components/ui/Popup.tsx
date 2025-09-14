@@ -64,6 +64,7 @@ export default function Popup() {
     if (hideToday === 'true' && hideDate === todayStr) {
       setIsVisible(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [popupData.length]);
 
   const handleClose = () => {

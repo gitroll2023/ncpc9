@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Play, Pause, SkipBack, SkipForward, ChevronRight, Volume2, Clock } from 'lucide-react';
+import Image from 'next/image';
 
 export default function PodcastSection() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -87,10 +88,13 @@ export default function PodcastSection() {
           {/* Podcast Thumbnail */}
           <div className="flex-shrink-0">
             <div className="relative group">
-              <img
+              <Image
                 src="/podcast/pod9.jpg"
                 alt="다함께 차차차! 문화가 있는 저녁"
-                className="w-64 h-64 rounded-lg shadow-2xl object-cover"
+                width={256}
+                height={256}
+                className="rounded-lg shadow-2xl object-cover"
+                priority
               />
               <div className="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 <button

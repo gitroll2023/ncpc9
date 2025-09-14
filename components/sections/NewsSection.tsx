@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { NoticeModal, BookingModal, EnrollmentModal } from '../ui/Modal';
 
 interface Notice {
