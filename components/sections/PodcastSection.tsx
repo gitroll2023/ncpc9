@@ -116,127 +116,127 @@ export default function PodcastSection() {
   };
 
   return (
-    <section className="relative bg-gradient-to-b from-[#003d7a] to-[#002a56] text-white overflow-hidden">
+    <section id="podcast" className="relative bg-gradient-to-b from-[#003d7a] to-[#002a56] text-white overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-4 py-12">
         <AnimatedSection direction="up" delay={0}>
           <div className="flex flex-col lg:flex-row gap-8 items-center">
-          {/* Podcast Thumbnail */}
-          <div className="flex-shrink-0">
-            <div className="relative group">
-              <Image
-                src="/podcast/pod9.jpg"
-                alt="다함께 차차차! 문화가 있는 저녁"
-                width={256}
-                height={256}
-                className="rounded-lg shadow-2xl object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <button
-                  onClick={togglePlay}
-                  className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors"
-                >
-                  {isPlaying ? (
-                    <Pause className="h-10 w-10 text-[#003d7a] ml-0" />
-                  ) : (
-                    <Play className="h-10 w-10 text-[#003d7a] ml-1" />
-                  )}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Podcast Info and Controls */}
-          <div className="flex-1 space-y-4">
-            <div>
-              <div className="text-sm text-blue-200 mb-2 flex items-center gap-2">
-                <Volume2 className="h-4 w-4" />
-                팟캐스트 Episode 9
-              </div>
-              <h2 className="text-3xl font-bold mb-3 text-white">
-                다함께 차차차! 문화가 있는 저녁
-              </h2>
-              <p className="text-blue-100 mb-4">
-                나주와 목포의 문화진흥센터 소식과 2025년 가을 축제 안내
-              </p>
-               <div className="flex items-center gap-4 text-sm text-blue-200">
-                 <span className="flex items-center gap-1">
-                   <Clock className="h-4 w-4" />
-                   {formatTime(duration || dummyDuration)}
-                 </span>
-                 <span>진행: 정다윤, 김상민</span>
-               </div>
-            </div>
-
-            {/* Custom Audio Controls */}
-            <div className="space-y-4">
-              {/* Progress Bar */}
-               <div className="space-y-2">
-                 <div className="flex items-center justify-between text-sm">
-                   <span>{formatTime(currentTime)}</span>
-                   <span>{formatTime(duration || dummyDuration)}</span>
-                 </div>
-                 <input
-                   type="range"
-                   min="0"
-                   max={duration || dummyDuration}
-                   value={currentTime}
-                   onChange={handleProgressChange}
-                   className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
-                   style={{
-                     background: `linear-gradient(to right, #ffffff ${(currentTime / (duration || dummyDuration)) * 100}%, rgba(255,255,255,0.2) ${(currentTime / (duration || dummyDuration)) * 100}%)`
-                   }}
-                 />
-               </div>
-
-              {/* Control Buttons */}
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => skip(-5)}
-                  className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-                  title="5초 뒤로"
-                >
-                  <SkipBack className="h-5 w-5" />
-                </button>
-
-                <button
-                  onClick={togglePlay}
-                  className="p-4 bg-white rounded-full hover:bg-blue-50 transition-colors"
-                >
-                  {isPlaying ? (
-                    <Pause className="h-6 w-6 text-[#003d7a]" />
-                  ) : (
-                    <Play className="h-6 w-6 text-[#003d7a] ml-0.5" />
-                  )}
-                </button>
-
-                <button
-                  onClick={() => skip(5)}
-                  className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-                  title="5초 앞으로"
-                >
-                  <SkipForward className="h-5 w-5" />
-                </button>
-
-                {/* Volume Control */}
-                <div className="flex items-center gap-2 ml-auto">
-                  <Volume2 className="h-5 w-5" />
-                  <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    value={volume}
-                    onChange={handleVolumeChange}
-                    className="w-24 h-2 bg-white/20 rounded-lg appearance-none cursor-pointer"
-                    style={{
-                      background: `linear-gradient(to right, #ffffff ${volume * 100}%, rgba(255,255,255,0.2) ${volume * 100}%)`
-                    }}
-                  />
+            {/* Podcast Thumbnail */}
+            <div className="flex-shrink-0">
+              <div className="relative group">
+                <Image
+                  src="/podcast/pod9.jpg"
+                  alt="다함께 차차차! 문화가 있는 저녁"
+                  width={256}
+                  height={256}
+                  className="rounded-lg shadow-2xl object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button
+                    onClick={togglePlay}
+                    className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors"
+                  >
+                    {isPlaying ? (
+                      <Pause className="h-10 w-10 text-[#003d7a] ml-0" />
+                    ) : (
+                      <Play className="h-10 w-10 text-[#003d7a] ml-1" />
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
+
+            {/* Podcast Info and Controls */}
+            <div className="flex-1 space-y-4">
+              <div>
+                <div className="text-sm text-blue-200 mb-2 flex items-center gap-2">
+                  <Volume2 className="h-4 w-4" />
+                  팟캐스트 Episode 9
+                </div>
+                <h2 className="text-3xl font-bold mb-3 text-white">
+                  다함께 차차차! 문화가 있는 저녁
+                </h2>
+                <p className="text-blue-100 mb-4">
+                  나주와 목포의 문화진흥센터 소식과 2025년 가을 축제 안내
+                </p>
+                <div className="flex items-center gap-4 text-sm text-blue-200">
+                  <span className="flex items-center gap-1">
+                    <Clock className="h-4 w-4" />
+                    {formatTime(duration || dummyDuration)}
+                  </span>
+                  <span>진행: 정다윤, 김상민</span>
+                </div>
+              </div>
+
+              {/* Custom Audio Controls */}
+              <div className="space-y-4">
+                {/* Progress Bar */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span>{formatTime(currentTime)}</span>
+                    <span>{formatTime(duration || dummyDuration)}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max={duration || dummyDuration}
+                    value={currentTime}
+                    onChange={handleProgressChange}
+                    className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+                    style={{
+                      background: `linear-gradient(to right, #ffffff ${(currentTime / (duration || dummyDuration)) * 100}%, rgba(255,255,255,0.2) ${(currentTime / (duration || dummyDuration)) * 100}%)`
+                    }}
+                  />
+                </div>
+
+                {/* Control Buttons */}
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => skip(-5)}
+                    className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
+                    title="5초 뒤로"
+                  >
+                    <SkipBack className="h-5 w-5" />
+                  </button>
+
+                  <button
+                    onClick={togglePlay}
+                    className="p-4 bg-white rounded-full hover:bg-blue-50 transition-colors"
+                  >
+                    {isPlaying ? (
+                      <Pause className="h-6 w-6 text-[#003d7a]" />
+                    ) : (
+                      <Play className="h-6 w-6 text-[#003d7a] ml-0.5" />
+                    )}
+                  </button>
+
+                  <button
+                    onClick={() => skip(5)}
+                    className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
+                    title="5초 앞으로"
+                  >
+                    <SkipForward className="h-5 w-5" />
+                  </button>
+
+                  {/* Volume Control */}
+                  <div className="flex items-center gap-2 ml-auto">
+                    <Volume2 className="h-5 w-5" />
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      value={volume}
+                      onChange={handleVolumeChange}
+                      className="w-24 h-2 bg-white/20 rounded-lg appearance-none cursor-pointer"
+                      style={{
+                        background: `linear-gradient(to right, #ffffff ${volume * 100}%, rgba(255,255,255,0.2) ${volume * 100}%)`
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Transcript Button - Below Content */}

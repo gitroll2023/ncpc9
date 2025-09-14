@@ -17,8 +17,8 @@ export default function Header() {
 
   const menuItems = [
     { name: '센터소개', href: '#about' },
-    { name: '프로그램', href: '#programs' },
     { name: '팟캐스트', href: '#podcast' },
+    { name: '프로그램', href: '#programs' },
     { name: '알림마당', href: '#news' },
   ];
 
