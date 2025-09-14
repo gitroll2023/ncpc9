@@ -64,9 +64,6 @@ export function PerformanceModal({ isOpen, onClose }: {
           </ul>
         </div>
 
-        <button className="w-full py-3 bg-[#003d7a] text-white font-medium rounded-lg hover:bg-[#002a56] transition-colors">
-          공연 예매하기
-        </button>
       </div>
     </Modal>
   );
@@ -224,13 +221,7 @@ export function EducationModal({ isOpen, onClose }: {
         <div className="flex gap-3">
           <button
             onClick={handleEducationApplication}
-            className="flex-1 py-3 bg-[#003d7a] text-white font-medium rounded-lg hover:bg-[#002a56] transition-colors"
-          >
-            수강 신청하기
-          </button>
-          <button
-            onClick={handleEducationApplication}
-            className="flex-1 py-3 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors"
+            className="w-full py-3 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors"
           >
             프로그램 안내서 다운로드
           </button>
@@ -314,12 +305,6 @@ export function CommunityModal({ isOpen, onClose }: {
           </p>
         </div>
 
-        <button
-          onClick={handleClubApplication}
-          className="w-full py-3 bg-[#003d7a] text-white font-medium rounded-lg hover:bg-[#002a56] transition-colors"
-        >
-          동아리 가입 신청
-        </button>
 
         <div className="bg-blue-50 p-4 rounded-lg">
           <p className="text-sm text-blue-800 font-medium">

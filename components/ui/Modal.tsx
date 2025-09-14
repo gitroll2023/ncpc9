@@ -87,7 +87,7 @@ export function NoticeModal({ notice, isOpen, onClose }: {
         <div className="prose max-w-none">
           <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
             {notice?.fullContent ||
-`안녕하세요, 나주 문화진흥센터입니다.
+`안녕하세요, 문화진흥센터 나주입니다.
 
 ${notice?.title}에 대한 자세한 내용을 안내드립니다.
 
@@ -97,9 +97,8 @@ ${notice?.title}에 대한 자세한 내용을 안내드립니다.
 자세한 사항은 아래 내용을 참고해 주시기 바랍니다.
 
 • 일시: ${notice?.date}
-• 장소: 나주 문화진흥센터
 • 대상: 나주 시민 누구나
-• 문의: 061-333-7000`}
+• 문의: contact@ncpc.co.kr`}
           </div>
         </div>
 
@@ -260,10 +259,10 @@ export function EnrollmentModal({ isOpen, onClose }: {
                 </div>
               </div>
               <button
-                onClick={handleEnrollment}
-                className="px-4 py-2 bg-[#003d7a] text-white rounded hover:bg-[#002a56] transition-colors text-sm"
+                disabled
+                className="px-4 py-2 bg-gray-400 text-white rounded cursor-not-allowed text-sm"
               >
-                신청하기
+                신청마감
               </button>
             </div>
           </div>
@@ -280,10 +279,10 @@ export function EnrollmentModal({ isOpen, onClose }: {
                 </div>
               </div>
               <button
-                onClick={handleEnrollment}
-                className="px-4 py-2 bg-[#003d7a] text-white rounded hover:bg-[#002a56] transition-colors text-sm"
+                disabled
+                className="px-4 py-2 bg-gray-400 text-white rounded cursor-not-allowed text-sm"
               >
-                신청하기
+                신청마감
               </button>
             </div>
           </div>
@@ -300,10 +299,10 @@ export function EnrollmentModal({ isOpen, onClose }: {
                 </div>
               </div>
               <button
-                onClick={handleEnrollment}
-                className="px-4 py-2 bg-[#003d7a] text-white rounded hover:bg-[#002a56] transition-colors text-sm"
+                disabled
+                className="px-4 py-2 bg-gray-400 text-white rounded cursor-not-allowed text-sm"
               >
-                신청하기
+                신청마감
               </button>
             </div>
           </div>

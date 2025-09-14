@@ -164,58 +164,158 @@ p {
   .text-balance {
     text-wrap: balance;
   }
+}
 
-  /* Professional Container System */
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
+/* 고급 애니메이션 및 효과 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
 
-  .container-narrow {
-    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 61, 122, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(0, 61, 122, 0.6), 0 0 40px rgba(0, 102, 204, 0.3); }
+}
 
-  .container-wide {
-    @apply max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8;
-  }
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
 
-  /* Professional Spacing System */
-  .section-padding {
-    @apply py-16 md:py-20 lg:py-24;
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(0, 61, 122, 0.2);
+    transform: scale(1);
   }
+  50% { 
+    box-shadow: 0 0 20px rgba(0, 61, 122, 0.4), 0 0 30px rgba(0, 102, 204, 0.2);
+    transform: scale(1.05);
+  }
+}
 
-  .section-padding-sm {
-    @apply py-12 md:py-16 lg:py-20;
-  }
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
 
-  .section-padding-lg {
-    @apply py-20 md:py-24 lg:py-32;
-  }
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
 
-  /* Professional Typography Utilities */
-  .text-professional {
-    @apply text-gray-700 leading-relaxed;
-  }
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
 
-  .text-corporate {
-    @apply text-gray-900 font-semibold;
-  }
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
 
-  .text-insurance {
-    @apply text-kb-navy font-bold;
-  }
+/* 글래스모피즘 효과 */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-  /* Animation Utilities */
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
+.glass-dark {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-  .animate-slide-in-left {
-    animation: slideInLeft 0.8s ease-out forwards;
-  }
+/* 그라데이션 텍스트 */
+.gradient-text {
+  background: linear-gradient(135deg, #003d7a 0%, #0066cc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  .animate-slide-in-right {
-    animation: slideInRight 0.8s ease-out forwards;
-  }
+/* 고급 호버 효과 */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* 리플 효과 */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Professional Container System */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.container-narrow {
+  @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.container-wide {
+  @apply max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Professional Spacing System */
+.section-padding {
+  @apply py-16 md:py-20 lg:py-24;
+}
+
+.section-padding-sm {
+  @apply py-12 md:py-16 lg:py-20;
+}
+
+.section-padding-lg {
+  @apply py-20 md:py-24 lg:py-32;
+}
+
+/* Professional Typography Utilities */
+.text-professional {
+  @apply text-gray-700 leading-relaxed;
+}
+
+.text-corporate {
+  @apply text-gray-900 font-semibold;
+}
+
+.text-insurance {
+  @apply text-kb-navy font-bold;
+}
+
+/* Animation Utilities */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
 }
 
 /* Professional Animations */

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Calendar } from 'lucide-react';
 import { NoticeModal, BookingModal, EnrollmentModal } from '../ui/Modal';
+import AnimatedSection from '../ui/AnimatedSection';
 
 interface Notice {
   category: string;
@@ -52,8 +53,7 @@ export default function NewsSection() {
 
       예매 방법:
       - 온라인: ncpc.co.kr
-      - 현장: 문화진흥센터 1층 안내데스크
-      - 전화: 061-333-7000`
+      - 현장: 문화진흥센터 1층 안내데스크`
     },
     {
       category: '공지',
@@ -84,20 +84,23 @@ export default function NewsSection() {
     <>
       <section id="news" className="py-20 bg-white">
         <div className="max-w-[1280px] mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-8">
+          <AnimatedSection direction="up" delay={0}>
+            <div className="grid lg:grid-cols-3 gap-8">
             {/* News List */}
             <div className="lg:col-span-2">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-gray-900">알림마당</h2>
-              </div>
+              <AnimatedSection direction="up" delay={0}>
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold text-gray-900">알림마당</h2>
+                </div>
+              </AnimatedSection>
 
               <div className="space-y-4">
                 {notices.map((notice, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleNoticeClick(notice)}
-                    className="block w-full text-left p-5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                  >
+                  <AnimatedSection key={index} direction="up" delay={index * 100}>
+                    <button
+                      onClick={() => handleNoticeClick(notice)}
+                      className="block w-full text-left p-5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
@@ -123,42 +126,52 @@ export default function NewsSection() {
                         </div>
                       </div>
                     </div>
-                  </button>
+                    </button>
+                  </AnimatedSection>
                 ))}
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-6">바로가기</h3>
+              <AnimatedSection direction="left" delay={200}>
+                <h3 className="text-xl font-bold text-gray-900 mb-6">바로가기</h3>
+              </AnimatedSection>
               <div className="space-y-3">
-                <button
-                  onClick={() => setIsBookingModalOpen(true)}
-                  className="block w-full text-left p-4 bg-[#003d7a] text-white rounded-lg hover:bg-[#002a56] transition-colors duration-200"
-                >
-                  <div className="font-medium mb-1">공연 예매</div>
-                  <div className="text-sm opacity-90">현재 예매 가능한 공연 보기</div>
-                </button>
-                <button
-                  onClick={() => setIsEnrollmentModalOpen(true)}
-                  className="block w-full text-left p-4 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 transition-colors duration-200"
-                >
-                  <div className="font-medium mb-1">수강 신청</div>
-                  <div className="text-sm text-gray-600">문화예술 교육프로그램</div>
-                </button>
+                <AnimatedSection direction="left" delay={300}>
+                  <button
+                    onClick={() => setIsBookingModalOpen(true)}
+                    className="block w-full text-left p-4 bg-[#003d7a] text-white rounded-lg hover:bg-[#002a56] transition-colors duration-200"
+                  >
+                    <div className="font-medium mb-1">공연 예매</div>
+                    <div className="text-sm opacity-90">현재 예매 가능한 공연 보기</div>
+                  </button>
+                </AnimatedSection>
+                <AnimatedSection direction="left" delay={400}>
+                  <button
+                    onClick={() => setIsEnrollmentModalOpen(true)}
+                    className="block w-full text-left p-4 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 transition-colors duration-200"
+                  >
+                    <div className="font-medium mb-1">수강 신청</div>
+                    <div className="text-sm text-gray-600">문화예술 교육프로그램</div>
+                  </button>
+                </AnimatedSection>
               </div>
 
               {/* Contact Info */}
-              <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-                <h4 className="font-medium text-gray-900 mb-3">문의</h4>
-                <div className="space-y-2 text-sm text-gray-600">
-                  <div>이메일: contact@ncpc.co.kr</div>
-                  <div>운영시간: 평일 09:00 - 18:00</div>
-                  <div>주말/공휴일: 09:00 - 17:00</div>
+              <AnimatedSection direction="left" delay={500}>
+                <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+                  <h4 className="font-medium text-gray-900 mb-3">문의</h4>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div>이메일: contact@ncpc.co.kr</div>
+                    <div>운영시간: 평일 09:00 - 18:00</div>
+                    <div>주말/공휴일: 09:00 - 17:00</div>
+                  </div>
                 </div>
-              </div>
+              </AnimatedSection>
             </div>
           </div>
+        </AnimatedSection>
         </div>
       </section>
 

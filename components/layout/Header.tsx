@@ -18,7 +18,7 @@ export default function Header() {
   const menuItems = [
     { name: '센터소개', href: '#about' },
     { name: '프로그램', href: '#programs' },
-    { name: '시설안내', href: '#facilities' },
+    { name: '팟캐스트', href: '#podcast' },
     { name: '알림마당', href: '#news' },
   ];
 
@@ -30,9 +30,11 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-[#003d7a]">
-              문화진흥센터<span className="ml-2 text-xl font-normal">나주</span>
-            </h1>
+            <a href="#" className="block">
+              <h1 className="text-2xl font-bold text-[#003d7a] hover:text-[#002a56] transition-colors">
+                문화진흥센터<span className="ml-2 text-xl font-normal">나주</span>
+              </h1>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
@@ -52,6 +54,8 @@ export default function Header() {
           <button
             className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>

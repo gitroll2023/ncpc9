@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
-import { Play, Pause, SkipBack, SkipForward, ChevronRight, Volume2, Clock } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, ChevronRight, Volume2, Clock, FileText } from 'lucide-react';
 import Image from 'next/image';
+import AnimatedSection from '../ui/AnimatedSection';
 
 export default function PodcastSection() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -11,7 +12,12 @@ export default function PodcastSection() {
   const [showTranscript, setShowTranscript] = useState(false);
   const [transcript, setTranscript] = useState<string[]>([]);
   const [volume, setVolume] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // 임시로 더미 duration 설정 (실제 오디오 길이로 변경 필요)
+  const dummyDuration = 1800; // 30분 (1800초)
 
   useEffect(() => {
     // Load transcript
@@ -29,16 +35,43 @@ export default function PodcastSection() {
     if (!audio) return;
 
     const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => setDuration(audio.duration);
+    const updateDuration = () => {
+      console.log('오디오 duration:', audio.duration);
+      setDuration(audio.duration);
+      setIsLoading(false);
+    };
+    const handleError = (e: Event) => {
+      console.error('오디오 로드 실패:', e);
+      setHasError(true);
+      setIsLoading(false);
+    };
+    const handleCanPlay = () => {
+      console.log('오디오 재생 가능:', audio.duration);
+      setDuration(audio.duration);
+      setIsLoading(false);
+    };
+    const handleLoadStart = () => {
+      setIsLoading(true);
+      setHasError(false);
+    };
 
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', updateDuration);
+    audio.addEventListener('canplay', handleCanPlay);
+    audio.addEventListener('loadstart', handleLoadStart);
     audio.addEventListener('ended', () => setIsPlaying(false));
+    audio.addEventListener('error', handleError);
+
+    // 수동으로 로드 시도
+    audio.load();
 
     return () => {
       audio.removeEventListener('timeupdate', updateTime);
       audio.removeEventListener('loadedmetadata', updateDuration);
+      audio.removeEventListener('canplay', handleCanPlay);
+      audio.removeEventListener('loadstart', handleLoadStart);
       audio.removeEventListener('ended', () => setIsPlaying(false));
+      audio.removeEventListener('error', handleError);
     };
   }, []);
 
@@ -55,7 +88,8 @@ export default function PodcastSection() {
 
   const skip = (seconds: number) => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.max(0, Math.min(duration, audioRef.current.currentTime + seconds));
+    const maxDuration = duration || dummyDuration;
+    audioRef.current.currentTime = Math.max(0, Math.min(maxDuration, audioRef.current.currentTime + seconds));
   };
 
   const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +118,8 @@ export default function PodcastSection() {
   return (
     <section className="relative bg-gradient-to-b from-[#003d7a] to-[#002a56] text-white overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-4 py-12">
-        <div className="flex flex-col lg:flex-row gap-8 items-center">
+        <AnimatedSection direction="up" delay={0}>
+          <div className="flex flex-col lg:flex-row gap-8 items-center">
           {/* Podcast Thumbnail */}
           <div className="flex-shrink-0">
             <div className="relative group">
@@ -124,35 +159,35 @@ export default function PodcastSection() {
               <p className="text-blue-100 mb-4">
                 나주와 목포의 문화진흥센터 소식과 2025년 가을 축제 안내
               </p>
-              <div className="flex items-center gap-4 text-sm text-blue-200">
-                <span className="flex items-center gap-1">
-                  <Clock className="h-4 w-4" />
-                  {formatTime(duration)}
-                </span>
-                <span>진행: 정다윤, 김상민</span>
-              </div>
+               <div className="flex items-center gap-4 text-sm text-blue-200">
+                 <span className="flex items-center gap-1">
+                   <Clock className="h-4 w-4" />
+                   {formatTime(duration || dummyDuration)}
+                 </span>
+                 <span>진행: 정다윤, 김상민</span>
+               </div>
             </div>
 
             {/* Custom Audio Controls */}
             <div className="space-y-4">
               {/* Progress Bar */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span>{formatTime(currentTime)}</span>
-                  <span>{formatTime(duration)}</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max={duration || 0}
-                  value={currentTime}
-                  onChange={handleProgressChange}
-                  className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
-                  style={{
-                    background: `linear-gradient(to right, #ffffff ${(currentTime / duration) * 100}%, rgba(255,255,255,0.2) ${(currentTime / duration) * 100}%)`
-                  }}
-                />
-              </div>
+               <div className="space-y-2">
+                 <div className="flex items-center justify-between text-sm">
+                   <span>{formatTime(currentTime)}</span>
+                   <span>{formatTime(duration || dummyDuration)}</span>
+                 </div>
+                 <input
+                   type="range"
+                   min="0"
+                   max={duration || dummyDuration}
+                   value={currentTime}
+                   onChange={handleProgressChange}
+                   className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+                   style={{
+                     background: `linear-gradient(to right, #ffffff ${(currentTime / (duration || dummyDuration)) * 100}%, rgba(255,255,255,0.2) ${(currentTime / (duration || dummyDuration)) * 100}%)`
+                   }}
+                 />
+               </div>
 
               {/* Control Buttons */}
               <div className="flex items-center gap-4">
@@ -202,18 +237,19 @@ export default function PodcastSection() {
               </div>
             </div>
           </div>
+          </div>
 
-          {/* Transcript Toggle Button */}
-          <button
-            onClick={() => setShowTranscript(!showTranscript)}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm p-4 rounded-l-lg hover:bg-white/20 transition-all ${
-              showTranscript ? 'translate-x-80' : 'translate-x-0'
-            }`}
-          >
-            <ChevronRight className={`h-6 w-6 transition-transform ${showTranscript ? 'rotate-180' : ''}`} />
-            <span className="sr-only">대본 보기</span>
-          </button>
-        </div>
+          {/* Transcript Button - Below Content */}
+          <div className="mt-6 text-center">
+            <button
+              onClick={() => setShowTranscript(!showTranscript)}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-white/20 transition-all"
+            >
+              <FileText className="h-5 w-5" />
+              <span className="font-medium">팟캐스트 대본 {showTranscript ? '닫기' : '보기'}</span>
+            </button>
+          </div>
+        </AnimatedSection>
       </div>
 
       {/* Hidden Audio Element */}

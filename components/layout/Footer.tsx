@@ -1,10 +1,15 @@
 "use client";
 
-import { Mail, Clock } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, Clock, Lock } from 'lucide-react';
+import LoginModal from '../ui/LoginModal';
 
 export default function Footer() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
   return (
-    <footer className="bg-[#1a1a1a] text-white">
+    <>
+      <footer className="bg-[#1a1a1a] text-white">
       <div className="max-w-[1280px] mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Logo and Info */}
@@ -50,13 +55,30 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-8 pt-8 border-t border-gray-800 text-center">
-          <p className="text-sm text-gray-300">
-            © 2025 나주 문화진흥센터. All rights reserved. | ncpc.co.kr
-          </p>
+        {/* Copyright and Login */}
+        <div className="mt-8 pt-8 border-t border-gray-800">
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-gray-300">
+              © 2020 나주 문화진흥센터. All rights reserved.
+            </p>
+            <button
+              onClick={() => setIsLoginModalOpen(true)}
+              className="group flex items-center gap-2 px-4 py-2 text-gray-400 hover:text-white transition-colors"
+              title="회원 로그인"
+            >
+              <Lock className="h-4 w-4" />
+              <span className="text-sm">Login</span>
+            </button>
+          </div>
         </div>
       </div>
     </footer>
+
+    {/* Login Modal */}
+    <LoginModal
+      isOpen={isLoginModalOpen}
+      onClose={() => setIsLoginModalOpen(false)}
+    />
+    </>
   );
 }

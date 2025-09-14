@@ -247,7 +247,7 @@ const QuickLinks = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-xl">
               <Phone className="h-5 w-5" />
-              <span className="font-semibold">061-123-4567</span>
+         
             </div>
             <button className="bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors duration-200">
               온라인 문의하기

@@ -273,7 +273,7 @@ export default function QuickMenu() {
             <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm px-6 py-4 rounded">
               <Phone className="h-6 w-6" />
               <div className="text-left">
-                <div className="font-bold text-lg">061-333-7000</div>
+       
                 <div className="text-sm text-white/80">평일 09:00~18:00</div>
               </div>
             </div>
