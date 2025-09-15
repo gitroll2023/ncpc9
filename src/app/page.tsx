@@ -22,9 +22,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full overflow-x-hidden">
       <Header />
-      <main className="pt-20">
+      <main className="pt-20 w-full overflow-x-hidden">
         <HeroSection onNewsClick={handleNewsClick} />
         <AboutSection />
         <PodcastSection />

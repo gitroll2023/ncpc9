@@ -23,7 +23,7 @@ export default function Header() {
   ];
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 bg-white ${
+    <header className={`fixed w-full max-w-[100vw] z-50 transition-all duration-300 bg-white ${
       isScrolled ? 'shadow-lg' : 'shadow-sm'
     }`}>
       <div className="max-w-[1280px] mx-auto px-4">
@@ -66,7 +66,7 @@ export default function Header() {
       <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
         isMenuOpen ? 'max-h-64' : 'max-h-0'
       }`}>
-        <nav className="px-4 py-4 bg-white border-t">
+        <nav className="px-4 py-4 bg-white border-t max-w-full overflow-x-hidden">
           {menuItems.map((item) => (
             <a
               key={item.name}

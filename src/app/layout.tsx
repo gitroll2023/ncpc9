@@ -93,7 +93,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="antialiased">
+      <body className="antialiased overflow-x-hidden">
         {children}
       </body>
     </html>
