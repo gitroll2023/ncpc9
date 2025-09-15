@@ -1,6 +1,6 @@
 "use client";
 
-import { Users, Award, Calendar, Home, ArrowRight, Check, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Users, Award, Calendar, Home, ArrowRight, Check, Play, Pause, Volume2, VolumeX, Maximize, Minimize } from 'lucide-react';
 import AnimatedSection from '../ui/AnimatedSection';
 import { useState, useRef, useEffect } from 'react';
 
@@ -10,7 +10,11 @@ export default function AboutSection() {
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showControls, setShowControls] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const hideControlsTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -30,10 +34,18 @@ export default function AboutSection() {
     video.addEventListener('loadedmetadata', handleLoadedMetadata);
     video.addEventListener('ended', () => setIsPlaying(false));
 
+    // Fullscreen change listener
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
     return () => {
       video.removeEventListener('timeupdate', updateProgress);
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
       video.removeEventListener('ended', () => setIsPlaying(false));
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
   }, []);
 
@@ -41,11 +53,31 @@ export default function AboutSection() {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
+        setShowControls(true);
+        if (hideControlsTimeout.current) {
+          clearTimeout(hideControlsTimeout.current);
+        }
       } else {
         videoRef.current.play();
+        setShowControls(true);
+        // 모든 디바이스에서 컨트롤 자동 숨기기
+        if (hideControlsTimeout.current) {
+          clearTimeout(hideControlsTimeout.current);
+        }
+        hideControlsTimeout.current = setTimeout(() => {
+          setShowControls(false);
+        }, 3000);
       }
       setIsPlaying(!isPlaying);
     }
+  };
+
+  const handleVideoClick = () => {
+    togglePlay();
+  };
+
+  const handleControlClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
   };
 
   const toggleMute = () => {
@@ -59,6 +91,20 @@ export default function AboutSection() {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const toggleFullscreen = async () => {
+    if (!containerRef.current) return;
+
+    try {
+      if (!document.fullscreenElement) {
+        await containerRef.current.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (error) {
+      console.error('Fullscreen error:', error);
+    }
   };
   const features = [
     {
@@ -113,7 +159,44 @@ export default function AboutSection() {
         {/* Video Section */}
         <AnimatedSection direction="up" delay={100}>
           <div className="mb-20">
-            <div className="relative rounded-2xl overflow-hidden bg-gray-900 shadow-2xl">
+            <div
+              ref={containerRef}
+              className="relative rounded-2xl overflow-hidden bg-gray-900 shadow-2xl"
+              onMouseEnter={() => {
+                if (isPlaying) {
+                  setShowControls(true);
+                  if (hideControlsTimeout.current) {
+                    clearTimeout(hideControlsTimeout.current);
+                  }
+                  hideControlsTimeout.current = setTimeout(() => {
+                    if (isPlaying) {
+                      setShowControls(false);
+                    }
+                  }, 3000);
+                }
+              }}
+              onMouseMove={() => {
+                if (isPlaying) {
+                  setShowControls(true);
+                  if (hideControlsTimeout.current) {
+                    clearTimeout(hideControlsTimeout.current);
+                  }
+                  hideControlsTimeout.current = setTimeout(() => {
+                    if (isPlaying) {
+                      setShowControls(false);
+                    }
+                  }, 3000);
+                }
+              }}
+              onMouseLeave={() => {
+                if (isPlaying) {
+                  if (hideControlsTimeout.current) {
+                    clearTimeout(hideControlsTimeout.current);
+                  }
+                  setShowControls(false);
+                }
+              }}
+            >
               <video
                 ref={videoRef}
                 className="w-full h-auto cursor-pointer"
@@ -121,7 +204,7 @@ export default function AboutSection() {
                 playsInline
                 preload="metadata"
                 poster="/0905.jpg"
-                onClick={togglePlay}
+                onClick={handleVideoClick}
                 onContextMenu={(e) => e.preventDefault()}
                 controlsList="nodownload"
               >
@@ -130,21 +213,34 @@ export default function AboutSection() {
               </video>
 
               {/* Video Controls Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                <div className="flex items-center gap-4">
+              <div
+                className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 sm:p-4 lg:p-6 transition-opacity duration-300 ${
+                  showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                }`}
+                onClick={handleControlClick}
+              >
+                {/* Title for Mobile - Above Controls */}
+                <div className="mb-2 sm:hidden">
+                  <h3 className="text-white font-bold text-sm">문화진흥센터 나주</h3>
+                </div>
+
+                <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
                   <button
-                    onClick={togglePlay}
-                    className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      togglePlay();
+                    }}
+                    className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors flex-shrink-0"
                   >
                     {isPlaying ? (
-                      <Pause className="w-5 h-5 text-white" />
+                      <Pause className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white" />
                     ) : (
-                      <Play className="w-5 h-5 text-white ml-0.5" />
+                      <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white ml-0.5" />
                     )}
                   </button>
 
                   <div className="flex-1">
-                    <div className="bg-white/20 backdrop-blur rounded-full h-2 overflow-hidden">
+                    <div className="bg-white/20 backdrop-blur rounded-full h-1.5 sm:h-2 overflow-hidden">
                       <div
                         className="bg-white h-full transition-all duration-200"
                         style={{ width: `${progress}%` }}
@@ -152,25 +248,43 @@ export default function AboutSection() {
                     </div>
                   </div>
 
-                  <span className="text-white text-sm font-medium min-w-[80px]">
+                  <span className="text-white text-xs sm:text-sm font-medium min-w-[60px] sm:min-w-[70px] lg:min-w-[80px] text-right">
                     {videoRef.current ? formatTime(videoRef.current.currentTime) : '0:00'} / {formatTime(duration)}
                   </span>
 
                   <button
-                    onClick={toggleMute}
-                    className="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleMute();
+                    }}
+                    className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors flex-shrink-0"
                   >
                     {isMuted ? (
-                      <VolumeX className="w-4 h-4 text-white" />
+                      <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                     ) : (
-                      <Volume2 className="w-4 h-4 text-white" />
+                      <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                    )}
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFullscreen();
+                    }}
+                    className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors flex-shrink-0"
+                  >
+                    {isFullscreen ? (
+                      <Minimize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                    ) : (
+                      <Maximize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                     )}
                   </button>
                 </div>
 
-                <div className="mt-3">
-                  <h3 className="text-white font-bold text-lg">문화진흥센터 나주 소개 영상</h3>
-                  <p className="text-white/80 text-sm mt-1">나주시 문화예술의 중심, 문화진흥센터를 만나보세요</p>
+                {/* Title for Desktop - Below Controls */}
+                <div className="mt-3 hidden sm:block">
+                  <h3 className="text-white font-bold text-base sm:text-lg">문화진흥센터 나주 소개 영상</h3>
+                  <p className="text-white/80 text-xs sm:text-sm mt-1">나주시 문화예술의 중심, 문화진흥센터를 만나보세요</p>
                 </div>
               </div>
             </div>
