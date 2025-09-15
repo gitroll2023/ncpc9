@@ -22,27 +22,41 @@ export function PerformanceModal({ isOpen, onClose }: {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">2025년 9월 공연 일정</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">2025년 주요 공연</h3>
           <div className="space-y-3">
             <div className="border-l-4 border-[#003d7a] pl-4 py-2">
-              <div className="font-medium text-gray-900">나주의 소리 - 가을 정기공연</div>
+              <div className="font-medium text-gray-900">사랑愛담다</div>
               <div className="text-sm text-gray-600 mt-1 space-y-1">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  <span>2025.09.20 (토) 19:00</span>
+                  <span>2025.05.24 (토)</span>
                 </div>
+                <div className="text-sm">장소: 나주 정미소</div>
               </div>
             </div>
 
             <div className="border-l-4 border-green-500 pl-4 py-2">
-              <div className="font-medium text-gray-900">청소년 오케스트라 정기연주회</div>
+              <div className="font-medium text-gray-900">나주 문화콘서트</div>
               <div className="text-sm text-gray-600 mt-1 space-y-1">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  <span>2025.09.27 (토) 17:00</span>
+                  <span>2025.07.05</span>
                 </div>
+                <div className="text-sm">장소: 나주 정미소</div>
               </div>
             </div>
+
+            <div className="border-l-4 border-purple-500 pl-4 py-2">
+              <div className="font-medium text-gray-900">나주포차</div>
+              <div className="text-sm text-gray-600 mt-1 space-y-1">
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4" />
+                  <span>2025.09.05-06 (금,토)</span>
+                </div>
+                <div className="text-sm">장소: CGV건물 3층</div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -86,55 +100,20 @@ export function ExhibitionModal({ isOpen, onClose }: {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">종료된 전시</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">전시 프로그램</h3>
           <div className="space-y-4">
-            <div className="border rounded-lg p-4 bg-gray-50">
+            <div className="border rounded-lg p-4">
               <div className="flex items-start justify-between">
                 <div>
-                  <h4 className="font-medium text-gray-900">나주의 빛과 색</h4>
-                  <p className="text-sm text-gray-600 mt-1">지역 작가 15인 연합전</p>
+                  <h4 className="font-medium text-gray-900">생애그넘어</h4>
+                  <p className="text-sm text-gray-600 mt-1">그림 전시회</p>
                   <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                    <span>📅 2025.07.01 - 08.31</span>
-                    <span>🎨 회화, 조각</span>
-                    <span>📍 빛가람 전망대 1층</span>
+                    <span>🎨 지역 예술가들의 작품</span>
                   </div>
+                  <p className="text-sm text-gray-600 mt-2">삶과 죽음, 그 너머를 주제로 한 작품 전시</p>
                 </div>
-                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">
-                  종료
-                </span>
-              </div>
-            </div>
-
-            <div className="border rounded-lg p-4 bg-gray-50">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h4 className="font-medium text-gray-900">전통과 현대의 만남</h4>
-                  <p className="text-sm text-gray-600 mt-1">한국화 특별전</p>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                    <span>📅 2025.05.15 - 06.30</span>
-                    <span>🎨 한국화</span>
-                    <span>📍 빛가람 전망대 1층</span>
-                  </div>
-                </div>
-                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">
-                  종료
-                </span>
-              </div>
-            </div>
-
-            <div className="border rounded-lg p-4 bg-gray-50">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h4 className="font-medium text-gray-900">나주의 사계절</h4>
-                  <p className="text-sm text-gray-600 mt-1">사진 특별전</p>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                    <span>📅 2025.03.01 - 04.30</span>
-                    <span>📸 사진</span>
-                    <span>📍 빛가람 전망대 1층</span>
-                  </div>
-                </div>
-                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">
-                  종료
+                <span className="px-2 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded">
+                  예정
                 </span>
               </div>
             </div>
@@ -143,12 +122,10 @@ export function ExhibitionModal({ isOpen, onClose }: {
 
         <div className="bg-gray-100 p-4 rounded-lg">
           <p className="text-sm text-gray-700">
-            📍 모든 전시는 빛가람 전망대 1층에서 진행되었습니다.
-          </p>
-          <p className="text-sm text-gray-600 mt-2">
-            다음 전시 일정은 추후 공지 예정입니다.
+            📍 전시 공간 및 상세 일정은 추후 공지 예정입니다.
           </p>
         </div>
+
       </div>
     </Modal>
   );
@@ -181,51 +158,19 @@ export function EducationModal({ isOpen, onClose }: {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">2025년 가을학기 프로그램</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">문화교육 프로그램</h3>
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div>
-                <div className="font-medium text-gray-900">어린이 미술교실</div>
-                <div className="text-sm text-gray-600">만 5-7세 / 주 2회</div>
-              </div>
-              <div className="text-right">
-                <div className="text-sm font-medium text-[#003d7a]">월 60,000원</div>
-                <div className="text-xs text-gray-500">잔여 3석</div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div>
-                <div className="font-medium text-gray-900">청소년 기타교실</div>
-                <div className="text-sm text-gray-600">중고등학생 / 주 1회</div>
-              </div>
-              <div className="text-right">
-                <div className="text-sm font-medium text-[#003d7a]">월 80,000원</div>
-                <div className="text-xs text-gray-500">잔여 5석</div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div>
-                <div className="font-medium text-gray-900">성인 서예교실</div>
-                <div className="text-sm text-gray-600">성인 / 주 2회</div>
-              </div>
-              <div className="text-right">
-                <div className="text-sm font-medium text-[#003d7a]">월 70,000원</div>
-                <div className="text-xs text-gray-500">잔여 7석</div>
-              </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <p className="text-gray-700">
+                현재 다양한 문화예술 교육 프로그램을 준비 중입니다.
+              </p>
+              <p className="text-sm text-gray-600 mt-2">
+                어린이부터 성인까지 모든 연령층을 위한 체계적인 문화예술 교육프로그램을 제공할 예정입니다.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3">
-          <button
-            onClick={handleEducationApplication}
-            className="w-full py-3 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors"
-          >
-            프로그램 안내서 다운로드
-          </button>
-        </div>
 
         <div className="bg-blue-50 p-4 rounded-lg">
           <p className="text-sm text-blue-800 font-medium">
@@ -272,38 +217,25 @@ export function CommunityModal({ isOpen, onClose }: {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">활동 중인 동아리</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="border rounded-lg p-3 text-center hover:bg-gray-50">
-              <div className="text-2xl mb-2">🎭</div>
-              <div className="font-medium text-sm">나주 연극동아리</div>
-              <div className="text-xs text-gray-600">회원 15명</div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">생활문화 활동</h3>
+          <div className="space-y-3">
+            <div className="border-l-4 border-orange-500 pl-4 py-2">
+              <div className="font-medium text-gray-900">Sing Together</div>
+              <div className="text-sm text-gray-600 mt-1">
+                <p>싱투게더 동호회 - 노래 동호회</p>
+                <p className="text-xs mt-1">장소: 나주 크로스카페</p>
+                <p className="text-xs">노래를 사랑하는 사람들이 모여 함께 노래하는 동호회</p>
+              </div>
             </div>
-            <div className="border rounded-lg p-3 text-center hover:bg-gray-50">
-              <div className="text-2xl mb-2">🎵</div>
-              <div className="font-medium text-sm">합창단</div>
-              <div className="text-xs text-gray-600">회원 32명</div>
-            </div>
-            <div className="border rounded-lg p-3 text-center hover:bg-gray-50">
-              <div className="text-2xl mb-2">📸</div>
-              <div className="font-medium text-sm">사진동호회</div>
-              <div className="text-xs text-gray-600">회원 28명</div>
-            </div>
-            <div className="border rounded-lg p-3 text-center hover:bg-gray-50">
-              <div className="text-2xl mb-2">🎨</div>
-              <div className="font-medium text-sm">수채화 모임</div>
-              <div className="text-xs text-gray-600">회원 20명</div>
+
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-700">
+                일상 속에서 즐기는 문화활동을 통해 삶의 질을 높이고 공동체를 만들어가는 프로그램입니다.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-yellow-50 p-4 rounded-lg">
-          <h4 className="font-medium text-gray-900 mb-2">동아리 신규 회원 모집</h4>
-          <p className="text-sm text-gray-700">
-            2025년 하반기 동아리 신규 회원을 모집합니다.
-            관심있는 분야의 동아리에 가입하여 함께 활동해보세요!
-          </p>
-        </div>
 
 
         <div className="bg-blue-50 p-4 rounded-lg">

@@ -170,19 +170,17 @@ export function BookingModal({ isOpen, onClose }: {
           <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="font-semibold text-gray-900">가을 정기공연 &quot;나주의 소리&quot;</h3>
-                <p className="text-sm text-gray-600 mt-1">전통 국악과 현대음악의 만남</p>
+                <h3 className="font-semibold text-gray-900">사랑愛담다</h3>
+                <p className="text-sm text-gray-600 mt-1">5월 24일(토) 예정</p>
                 <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                  <span>📅 2025.09.20 (토) 19:00</span>
-                  <span>💺 매진</span>
+                  <span>🏢 나주 정미소</span>
                 </div>
               </div>
               <button
-                onClick={() => handleBooking(true)}
-                className="px-4 py-2 bg-gray-400 text-white rounded cursor-not-allowed"
-                disabled
+                onClick={() => handleBooking(false)}
+                className="px-4 py-2 bg-[#003d7a] text-white rounded hover:bg-[#002a56] transition-colors"
               >
-                매진
+                자세히 보기
               </button>
             </div>
           </div>
@@ -190,19 +188,74 @@ export function BookingModal({ isOpen, onClose }: {
           <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="font-semibold text-gray-900">청소년 오케스트라 정기연주회</h3>
-                <p className="text-sm text-gray-600 mt-1">나주 청소년들의 아름다운 하모니</p>
+                <h3 className="font-semibold text-gray-900">나주 문화콘서트</h3>
+                <p className="text-sm text-gray-600 mt-1">7월 5일 예정</p>
                 <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                  <span>📅 2025.09.27 (토) 17:00</span>
-                  <span>💺 매진</span>
+                  <span>🏢 나주 정미소</span>
                 </div>
               </div>
               <button
-                onClick={() => handleBooking(true)}
-                className="px-4 py-2 bg-gray-400 text-white rounded cursor-not-allowed"
-                disabled
+                onClick={() => handleBooking(false)}
+                className="px-4 py-2 bg-[#003d7a] text-white rounded hover:bg-[#002a56] transition-colors"
               >
-                매진
+                자세히 보기
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Events */}
+        <div className="space-y-4">
+          <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-semibold text-gray-900">나주포차</h3>
+                <p className="text-sm text-gray-600 mt-1">9월 5~6일 (금,토)</p>
+                <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                  <span>🏢 CGV건물 3층</span>
+                </div>
+              </div>
+              <button
+                onClick={() => handleBooking(false)}
+                className="px-4 py-2 bg-[#003d7a] text-white rounded hover:bg-[#002a56] transition-colors"
+              >
+                자세히 보기
+              </button>
+            </div>
+          </div>
+
+          <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-semibold text-gray-900">Sing Together</h3>
+                <p className="text-sm text-gray-600 mt-1">싱투게더 동호회 개최 - 노래대회</p>
+                <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                  <span>🏢 나주 크로스카페</span>
+                </div>
+              </div>
+              <button
+                onClick={() => handleBooking(false)}
+                className="px-4 py-2 bg-[#003d7a] text-white rounded hover:bg-[#002a56] transition-colors"
+              >
+                자세히 보기
+              </button>
+            </div>
+          </div>
+
+          <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-semibold text-gray-900">생애그넘어</h3>
+                <p className="text-sm text-gray-600 mt-1">그림 전시회</p>
+                <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                  <span>🇺 전시 예정</span>
+                </div>
+              </div>
+              <button
+                onClick={() => handleBooking(false)}
+                className="px-4 py-2 bg-[#003d7a] text-white rounded hover:bg-[#002a56] transition-colors"
+              >
+                자세히 보기
               </button>
             </div>
           </div>
@@ -211,7 +264,7 @@ export function BookingModal({ isOpen, onClose }: {
         {/* Info */}
         <div className="bg-blue-50 p-4 rounded-lg">
           <p className="text-sm text-blue-800">
-            ℹ️ 예매 후 공연 당일 현장에서 신분증을 제시하고 티켓을 수령하세요.
+            ℹ️ 예매 후 행사 당일 현장에서 예매 확인서를 제시해 주세요.
           </p>
         </div>
       </div>

@@ -65,7 +65,7 @@ export default function AboutSection() {
               </h3>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  문화진흥센터 나주는 2020년 개관 이래 지역 문화예술 발전의 중추적 역할을
+                  문화진흥센터는 2020년 개관 이래 지역 문화예술 발전의 중추적 역할을
                   담당하고 있습니다. 최신 시설과 전문 인력을 바탕으로 수준 높은 문화예술
                   프로그램을 제공하며, 시민 모두가 문화를 향유할 수 있는 열린 공간을 지향합니다.
                 </p>
