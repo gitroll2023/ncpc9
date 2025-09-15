@@ -1,10 +1,65 @@
 "use client";
 
-import { Users, Award, Calendar, Home, ArrowRight, Check } from 'lucide-react';
+import { Users, Award, Calendar, Home, ArrowRight, Check, Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import AnimatedSection from '../ui/AnimatedSection';
+import { useState, useRef, useEffect } from 'react';
 
 
 export default function AboutSection() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const updateProgress = () => {
+      if (video.duration) {
+        setProgress((video.currentTime / video.duration) * 100);
+      }
+    };
+
+    const handleLoadedMetadata = () => {
+      setDuration(video.duration);
+    };
+
+    video.addEventListener('timeupdate', updateProgress);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener('ended', () => setIsPlaying(false));
+
+    return () => {
+      video.removeEventListener('timeupdate', updateProgress);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('ended', () => setIsPlaying(false));
+    };
+  }, []);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
   const features = [
     {
       icon: Home,
@@ -52,6 +107,73 @@ export default function AboutSection() {
               나주시 문화예술의 중심지로서 시민의 문화적 삶의 질 향상과
               지역 문화예술 발전을 선도하는 전문 문화기관입니다.
             </p>
+          </div>
+        </AnimatedSection>
+
+        {/* Video Section */}
+        <AnimatedSection direction="up" delay={100}>
+          <div className="mb-20">
+            <div className="relative rounded-2xl overflow-hidden bg-gray-900 shadow-2xl">
+              <video
+                ref={videoRef}
+                className="w-full h-auto cursor-pointer"
+                muted={isMuted}
+                playsInline
+                preload="metadata"
+                poster="/0905.jpg"
+                onClick={togglePlay}
+                onContextMenu={(e) => e.preventDefault()}
+                controlsList="nodownload"
+              >
+                <source src="/0905.mp4" type="video/mp4" />
+                영상을 재생할 수 없습니다.
+              </video>
+
+              {/* Video Controls Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={togglePlay}
+                    className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                  >
+                    {isPlaying ? (
+                      <Pause className="w-5 h-5 text-white" />
+                    ) : (
+                      <Play className="w-5 h-5 text-white ml-0.5" />
+                    )}
+                  </button>
+
+                  <div className="flex-1">
+                    <div className="bg-white/20 backdrop-blur rounded-full h-2 overflow-hidden">
+                      <div
+                        className="bg-white h-full transition-all duration-200"
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <span className="text-white text-sm font-medium min-w-[80px]">
+                    {videoRef.current ? formatTime(videoRef.current.currentTime) : '0:00'} / {formatTime(duration)}
+                  </span>
+
+                  <button
+                    onClick={toggleMute}
+                    className="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                  >
+                    {isMuted ? (
+                      <VolumeX className="w-4 h-4 text-white" />
+                    ) : (
+                      <Volume2 className="w-4 h-4 text-white" />
+                    )}
+                  </button>
+                </div>
+
+                <div className="mt-3">
+                  <h3 className="text-white font-bold text-lg">문화진흥센터 나주 소개 영상</h3>
+                  <p className="text-white/80 text-sm mt-1">나주시 문화예술의 중심, 문화진흥센터를 만나보세요</p>
+                </div>
+              </div>
+            </div>
           </div>
         </AnimatedSection>
 
