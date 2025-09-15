@@ -15,6 +15,8 @@ export default function AboutSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const hideControlsTimeout = useRef<NodeJS.Timeout | null>(null);
+  const lastTapTime = useRef(0);
+  const tapTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -93,29 +95,31 @@ export default function AboutSection() {
 
   const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+    e.preventDefault();
+
     if (!videoRef.current || !duration) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
-    const percentage = clickX / rect.width;
+    const percentage = Math.max(0, Math.min(1, clickX / rect.width));
     const newTime = percentage * duration;
 
     videoRef.current.currentTime = newTime;
-    setProgress((newTime / duration) * 100);
   };
 
-  let lastTapTime = 0;
-  let tapTimeout: NodeJS.Timeout | null = null;
-
-  const handleDoubleTap = (e: React.MouseEvent<HTMLVideoElement>) => {
+  const handleDoubleTap = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+    e.preventDefault();
 
     const currentTime = Date.now();
-    const tapInterval = currentTime - lastTapTime;
+    const tapInterval = currentTime - lastTapTime.current;
 
     if (tapInterval < 300 && tapInterval > 0) {
       // 더블탭 감지
-      if (tapTimeout) clearTimeout(tapTimeout);
+      if (tapTimeout.current) {
+        clearTimeout(tapTimeout.current);
+        tapTimeout.current = null;
+      }
 
       const rect = e.currentTarget.getBoundingClientRect();
       const tapX = e.clientX - rect.left;
@@ -123,21 +127,22 @@ export default function AboutSection() {
 
       if (videoRef.current) {
         if (isLeftSide) {
-          // 왼쪽: 10초 뒤로
-          videoRef.current.currentTime = Math.max(0, videoRef.current.currentTime - 10);
+          // 왼쪽: 5초 뒤로
+          videoRef.current.currentTime = Math.max(0, videoRef.current.currentTime - 5);
         } else {
-          // 오른쪽: 10초 앞으로
-          videoRef.current.currentTime = Math.min(duration, videoRef.current.currentTime + 10);
+          // 오른쪽: 5초 앞으로
+          videoRef.current.currentTime = Math.min(duration, videoRef.current.currentTime + 5);
         }
       }
     } else {
       // 첫 번째 탭
-      tapTimeout = setTimeout(() => {
+      if (tapTimeout.current) clearTimeout(tapTimeout.current);
+      tapTimeout.current = setTimeout(() => {
         togglePlay();
       }, 300);
     }
 
-    lastTapTime = currentTime;
+    lastTapTime.current = currentTime;
   };
 
   const toggleMute = () => {
@@ -262,31 +267,35 @@ export default function AboutSection() {
                 <>
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1/3 h-full flex items-center justify-center pointer-events-none">
                     <div className="text-white text-4xl font-bold opacity-0 transition-opacity" id="leftTapIndicator">
-                      -10s
+                      -5s
                     </div>
                   </div>
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-full flex items-center justify-center pointer-events-none">
                     <div className="text-white text-4xl font-bold opacity-0 transition-opacity" id="rightTapIndicator">
-                      +10s
+                      +5s
                     </div>
                   </div>
                 </>
               )}
 
-              <video
-                ref={videoRef}
-                className="w-full h-auto cursor-pointer"
-                muted={isMuted}
-                playsInline
-                preload="metadata"
-                poster="/0905.jpg"
+              <div
+                className="relative w-full"
                 onClick={isFullscreen ? handleDoubleTap : handleVideoClick}
-                onContextMenu={(e) => e.preventDefault()}
-                controlsList="nodownload"
               >
+                <video
+                  ref={videoRef}
+                  className="w-full h-auto"
+                  muted={isMuted}
+                  playsInline
+                  preload="metadata"
+                  poster="/0905.jpg"
+                  onContextMenu={(e) => e.preventDefault()}
+                  controlsList="nodownload"
+                >
                 <source src="/0905.mp4" type="video/mp4" />
-                영상을 재생할 수 없습니다.
-              </video>
+                  영상을 재생할 수 없습니다.
+                </video>
+              </div>
 
               {/* Video Controls Overlay */}
               <div
