@@ -30,9 +30,20 @@ export default function AboutSection() {
       setDuration(video.duration);
     };
 
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setShowControls(true);
+      if (video) {
+        video.currentTime = 0; // 처음으로 되돌리기
+      }
+      if (hideControlsTimeout.current) {
+        clearTimeout(hideControlsTimeout.current);
+      }
+    };
+
     video.addEventListener('timeupdate', updateProgress);
     video.addEventListener('loadedmetadata', handleLoadedMetadata);
-    video.addEventListener('ended', () => setIsPlaying(false));
+    video.addEventListener('ended', handleEnded);
 
     // Fullscreen change listener
     const handleFullscreenChange = () => {
@@ -44,7 +55,7 @@ export default function AboutSection() {
     return () => {
       video.removeEventListener('timeupdate', updateProgress);
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      video.removeEventListener('ended', () => setIsPlaying(false));
+      video.removeEventListener('ended', handleEnded);
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
   }, []);
@@ -78,6 +89,55 @@ export default function AboutSection() {
 
   const handleControlClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+  };
+
+  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    if (!videoRef.current || !duration) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const percentage = clickX / rect.width;
+    const newTime = percentage * duration;
+
+    videoRef.current.currentTime = newTime;
+    setProgress((newTime / duration) * 100);
+  };
+
+  let lastTapTime = 0;
+  let tapTimeout: NodeJS.Timeout | null = null;
+
+  const handleDoubleTap = (e: React.MouseEvent<HTMLVideoElement>) => {
+    e.stopPropagation();
+
+    const currentTime = Date.now();
+    const tapInterval = currentTime - lastTapTime;
+
+    if (tapInterval < 300 && tapInterval > 0) {
+      // 더블탭 감지
+      if (tapTimeout) clearTimeout(tapTimeout);
+
+      const rect = e.currentTarget.getBoundingClientRect();
+      const tapX = e.clientX - rect.left;
+      const isLeftSide = tapX < rect.width / 2;
+
+      if (videoRef.current) {
+        if (isLeftSide) {
+          // 왼쪽: 10초 뒤로
+          videoRef.current.currentTime = Math.max(0, videoRef.current.currentTime - 10);
+        } else {
+          // 오른쪽: 10초 앞으로
+          videoRef.current.currentTime = Math.min(duration, videoRef.current.currentTime + 10);
+        }
+      }
+    } else {
+      // 첫 번째 탭
+      tapTimeout = setTimeout(() => {
+        togglePlay();
+      }, 300);
+    }
+
+    lastTapTime = currentTime;
   };
 
   const toggleMute = () => {
@@ -197,6 +257,22 @@ export default function AboutSection() {
                 }
               }}
             >
+              {/* 더블탭 표시기 */}
+              {isFullscreen && (
+                <>
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1/3 h-full flex items-center justify-center pointer-events-none">
+                    <div className="text-white text-4xl font-bold opacity-0 transition-opacity" id="leftTapIndicator">
+                      -10s
+                    </div>
+                  </div>
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-full flex items-center justify-center pointer-events-none">
+                    <div className="text-white text-4xl font-bold opacity-0 transition-opacity" id="rightTapIndicator">
+                      +10s
+                    </div>
+                  </div>
+                </>
+              )}
+
               <video
                 ref={videoRef}
                 className="w-full h-auto cursor-pointer"
@@ -204,7 +280,7 @@ export default function AboutSection() {
                 playsInline
                 preload="metadata"
                 poster="/0905.jpg"
-                onClick={handleVideoClick}
+                onClick={isFullscreen ? handleDoubleTap : handleVideoClick}
                 onContextMenu={(e) => e.preventDefault()}
                 controlsList="nodownload"
               >
@@ -240,11 +316,16 @@ export default function AboutSection() {
                   </button>
 
                   <div className="flex-1">
-                    <div className="bg-white/20 backdrop-blur rounded-full h-1.5 sm:h-2 overflow-hidden">
+                    <div
+                      className="bg-white/20 backdrop-blur rounded-full h-1.5 sm:h-2 overflow-hidden cursor-pointer relative group"
+                      onClick={handleProgressBarClick}
+                    >
                       <div
-                        className="bg-white h-full transition-all duration-200"
+                        className="bg-white h-full transition-all duration-200 pointer-events-none"
                         style={{ width: `${progress}%` }}
                       />
+                      {/* 호버 시 더 큰 클릭 영역 */}
+                      <div className="absolute inset-0 -top-2 -bottom-2" />
                     </div>
                   </div>
 
