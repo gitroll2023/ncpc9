@@ -62,21 +62,21 @@ export default function HeroSection({ onNewsClick }: HeroSectionProps) {
             {/* Category Badge */}
             <AnimatedSection delay={0} direction="up">
               <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-6">
-                <span className="text-white text-sm font-medium">나주 문화예술의 중심</span>
+                <span className="text-white text-sm font-medium">열린 문화의 중심</span>
               </div>
             </AnimatedSection>
 
             {/* Main Title */}
             <AnimatedSection delay={200} direction="up">
               <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                문화로 행복한 나주
+                열린 문화, 함께하는 미래
               </h1>
             </AnimatedSection>
 
             {/* Subtitle */}
             <AnimatedSection delay={400} direction="up">
               <p className="text-xl lg:text-2xl text-white/90 mb-8">
-                나주 문화진흥센터가 시민과 함께<br />
+                문화센터 열림이 시민과 함께<br />
                 풍요로운 문화예술의 미래를 만들어갑니다
               </p>
             </AnimatedSection>

@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from 'react';
 
 
 export default function AboutSection() {
+  const showVideo = false; // 영상 표시 여부 (true로 변경하면 다시 보임)
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -171,6 +172,7 @@ export default function AboutSection() {
       console.error('Fullscreen error:', error);
     }
   };
+
   const features = [
     {
       icon: Home,
@@ -212,174 +214,176 @@ export default function AboutSection() {
               <span className="text-[#003d7a] font-medium uppercase tracking-wider text-sm">About NCPC</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              문화진흥센터 나주
+              문화센터 열림
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl">
-              나주시 문화예술의 중심지로서 시민의 문화적 삶의 질 향상과
+              나주 지역 문화예술의 중심지로서 시민의 문화적 삶의 질 향상과
               지역 문화예술 발전을 선도하는 전문 문화기관입니다.
             </p>
           </div>
         </AnimatedSection>
 
         {/* Video Section */}
-        <AnimatedSection direction="up" delay={100}>
-          <div className="mb-20">
-            <div
-              ref={containerRef}
-              className="relative rounded-2xl overflow-hidden bg-gray-900 shadow-2xl"
-              onMouseEnter={() => {
-                if (isPlaying) {
-                  setShowControls(true);
-                  if (hideControlsTimeout.current) {
-                    clearTimeout(hideControlsTimeout.current);
-                  }
-                  hideControlsTimeout.current = setTimeout(() => {
-                    if (isPlaying) {
-                      setShowControls(false);
-                    }
-                  }, 3000);
-                }
-              }}
-              onMouseMove={() => {
-                if (isPlaying) {
-                  setShowControls(true);
-                  if (hideControlsTimeout.current) {
-                    clearTimeout(hideControlsTimeout.current);
-                  }
-                  hideControlsTimeout.current = setTimeout(() => {
-                    if (isPlaying) {
-                      setShowControls(false);
-                    }
-                  }, 3000);
-                }
-              }}
-              onMouseLeave={() => {
-                if (isPlaying) {
-                  if (hideControlsTimeout.current) {
-                    clearTimeout(hideControlsTimeout.current);
-                  }
-                  setShowControls(false);
-                }
-              }}
-            >
-              {/* 더블탭 표시기 */}
-              {isFullscreen && (
-                <>
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1/3 h-full flex items-center justify-center pointer-events-none">
-                    <div className="text-white text-4xl font-bold opacity-0 transition-opacity" id="leftTapIndicator">
-                      -5s
-                    </div>
-                  </div>
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-full flex items-center justify-center pointer-events-none">
-                    <div className="text-white text-4xl font-bold opacity-0 transition-opacity" id="rightTapIndicator">
-                      +5s
-                    </div>
-                  </div>
-                </>
-              )}
-
+        {showVideo && (
+          <AnimatedSection direction="up" delay={100}>
+            <div className="mb-20">
               <div
-                className="relative w-full"
-                onClick={isFullscreen ? handleDoubleTap : handleVideoClick}
+                ref={containerRef}
+                className="relative rounded-2xl overflow-hidden bg-gray-900 shadow-2xl"
+                onMouseEnter={() => {
+                  if (isPlaying) {
+                    setShowControls(true);
+                    if (hideControlsTimeout.current) {
+                      clearTimeout(hideControlsTimeout.current);
+                    }
+                    hideControlsTimeout.current = setTimeout(() => {
+                      if (isPlaying) {
+                        setShowControls(false);
+                      }
+                    }, 3000);
+                  }
+                }}
+                onMouseMove={() => {
+                  if (isPlaying) {
+                    setShowControls(true);
+                    if (hideControlsTimeout.current) {
+                      clearTimeout(hideControlsTimeout.current);
+                    }
+                    hideControlsTimeout.current = setTimeout(() => {
+                      if (isPlaying) {
+                        setShowControls(false);
+                      }
+                    }, 3000);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (isPlaying) {
+                    if (hideControlsTimeout.current) {
+                      clearTimeout(hideControlsTimeout.current);
+                    }
+                    setShowControls(false);
+                  }
+                }}
               >
-                <video
-                  ref={videoRef}
-                  className="w-full h-auto"
-                  muted={isMuted}
-                  playsInline
-                  preload="metadata"
-                  poster="/0905.jpg"
-                  onContextMenu={(e) => e.preventDefault()}
-                  controlsList="nodownload"
+                {/* 더블탭 표시기 */}
+                {isFullscreen && (
+                  <>
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1/3 h-full flex items-center justify-center pointer-events-none">
+                      <div className="text-white text-4xl font-bold opacity-0 transition-opacity" id="leftTapIndicator">
+                        -5s
+                      </div>
+                    </div>
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-full flex items-center justify-center pointer-events-none">
+                      <div className="text-white text-4xl font-bold opacity-0 transition-opacity" id="rightTapIndicator">
+                        +5s
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                <div
+                  className="relative w-full"
+                  onClick={isFullscreen ? handleDoubleTap : handleVideoClick}
                 >
-                <source src="/0905.mp4" type="video/mp4" />
-                  영상을 재생할 수 없습니다.
-                </video>
-              </div>
-
-              {/* Video Controls Overlay */}
-              <div
-                className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 sm:p-4 lg:p-6 transition-opacity duration-300 ${
-                  showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                }`}
-                onClick={handleControlClick}
-              >
-                {/* Title for Mobile - Above Controls */}
-                <div className="mb-2 sm:hidden">
-                  <h3 className="text-white font-bold text-sm">문화진흥센터 나주</h3>
+                  <video
+                    ref={videoRef}
+                    className="w-full h-auto"
+                    muted={isMuted}
+                    playsInline
+                    preload="metadata"
+                    poster="/0905.jpg"
+                    onContextMenu={(e) => e.preventDefault()}
+                    controlsList="nodownload"
+                  >
+                    <source src="/0905.mp4" type="video/mp4" />
+                    영상을 재생할 수 없습니다.
+                  </video>
                 </div>
 
-                <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      togglePlay();
-                    }}
-                    className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors flex-shrink-0"
-                  >
-                    {isPlaying ? (
-                      <Pause className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white" />
-                    ) : (
-                      <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white ml-0.5" />
-                    )}
-                  </button>
-
-                  <div className="flex-1">
-                    <div
-                      className="bg-white/20 backdrop-blur rounded-full h-1.5 sm:h-2 overflow-hidden cursor-pointer relative group"
-                      onClick={handleProgressBarClick}
-                    >
-                      <div
-                        className="bg-white h-full transition-all duration-200 pointer-events-none"
-                        style={{ width: `${progress}%` }}
-                      />
-                      {/* 호버 시 더 큰 클릭 영역 */}
-                      <div className="absolute inset-0 -top-2 -bottom-2" />
-                    </div>
+                {/* Video Controls Overlay */}
+                <div
+                  className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 sm:p-4 lg:p-6 transition-opacity duration-300 ${
+                    showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                  }`}
+                  onClick={handleControlClick}
+                >
+                  {/* Title for Mobile - Above Controls */}
+                  <div className="mb-2 sm:hidden">
+                    <h3 className="text-white font-bold text-sm">문화센터 열림</h3>
                   </div>
 
-                  <span className="text-white text-xs sm:text-sm font-medium min-w-[60px] sm:min-w-[70px] lg:min-w-[80px] text-right">
-                    {videoRef.current ? formatTime(videoRef.current.currentTime) : '0:00'} / {formatTime(duration)}
-                  </span>
+                  <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        togglePlay();
+                      }}
+                      className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors flex-shrink-0"
+                    >
+                      {isPlaying ? (
+                        <Pause className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white" />
+                      ) : (
+                        <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white ml-0.5" />
+                      )}
+                    </button>
 
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleMute();
-                    }}
-                    className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors flex-shrink-0"
-                  >
-                    {isMuted ? (
-                      <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-                    ) : (
-                      <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-                    )}
-                  </button>
+                    <div className="flex-1">
+                      <div
+                        className="bg-white/20 backdrop-blur rounded-full h-1.5 sm:h-2 overflow-hidden cursor-pointer relative group"
+                        onClick={handleProgressBarClick}
+                      >
+                        <div
+                          className="bg-white h-full transition-all duration-200 pointer-events-none"
+                          style={{ width: `${progress}%` }}
+                        />
+                        {/* 호버 시 더 큰 클릭 영역 */}
+                        <div className="absolute inset-0 -top-2 -bottom-2" />
+                      </div>
+                    </div>
 
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleFullscreen();
-                    }}
-                    className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors flex-shrink-0"
-                  >
-                    {isFullscreen ? (
-                      <Minimize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-                    ) : (
-                      <Maximize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-                    )}
-                  </button>
-                </div>
+                    <span className="text-white text-xs sm:text-sm font-medium min-w-[60px] sm:min-w-[70px] lg:min-w-[80px] text-right">
+                      {videoRef.current ? formatTime(videoRef.current.currentTime) : '0:00'} / {formatTime(duration)}
+                    </span>
 
-                {/* Title for Desktop - Below Controls */}
-                <div className="mt-3 hidden sm:block">
-                  <h3 className="text-white font-bold text-base sm:text-lg">문화진흥센터 나주 소개 영상</h3>
-                  <p className="text-white/80 text-xs sm:text-sm mt-1">나주시 문화예술의 중심, 문화진흥센터를 만나보세요</p>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleMute();
+                      }}
+                      className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors flex-shrink-0"
+                    >
+                      {isMuted ? (
+                        <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                      ) : (
+                        <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                      )}
+                    </button>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFullscreen();
+                      }}
+                      className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-colors flex-shrink-0"
+                    >
+                      {isFullscreen ? (
+                        <Minimize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                      ) : (
+                        <Maximize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Title for Desktop - Below Controls */}
+                  <div className="mt-3 hidden sm:block">
+                    <h3 className="text-white font-bold text-base sm:text-lg">문화센터 열림 소개 영상</h3>
+                    <p className="text-white/80 text-xs sm:text-sm mt-1">나주 문화예술의 중심, 문화센터 열림을 만나보세요</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
+        )}
 
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-16 mb-20">
@@ -391,7 +395,7 @@ export default function AboutSection() {
               </h3>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  문화진흥센터는 2020년 개관 이래 지역 문화예술 발전의 중추적 역할을
+                  문화센터 열림은 2020년 개관 이래 지역 문화예술 발전의 중추적 역할을
                   담당하고 있습니다. 최신 시설과 전문 인력을 바탕으로 수준 높은 문화예술
                   프로그램을 제공하며, 시민 모두가 문화를 향유할 수 있는 열린 공간을 지향합니다.
                 </p>
@@ -405,7 +409,7 @@ export default function AboutSection() {
               <div className="mt-8 p-6 border-l-4 border-[#003d7a] bg-gray-50">
                 <h4 className="font-bold text-lg text-[#003d7a] mb-2">VISION 2025</h4>
                 <p className="text-gray-700">
-                  "문화로 하나되는 행복한 나주, 시민과 함께 만들어가는 문화도시"
+                  "열린 문화로 하나되는 행복한 나주, 시민과 함께 만들어가는 문화도시"
                 </p>
               </div>
             </div>

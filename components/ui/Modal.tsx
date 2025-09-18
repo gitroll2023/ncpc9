@@ -87,17 +87,17 @@ export function NoticeModal({ notice, isOpen, onClose }: {
         <div className="prose max-w-none">
           <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
             {notice?.fullContent ||
-`안녕하세요, 문화진흥센터 나주입니다.
+`안녕하세요, 문화센터 열림입니다.
 
 ${notice?.title}에 대한 자세한 내용을 안내드립니다.
 
-문화진흥센터는 시민 여러분께 더 나은 문화예술 서비스를 제공하기 위해
+문화센터 열림은 시민 여러분께 더 나은 문화예술 서비스를 제공하기 위해
 항상 노력하고 있습니다. 많은 관심과 참여 부탁드립니다.
 
 자세한 사항은 아래 내용을 참고해 주시기 바랍니다.
 
 • 일시: ${notice?.date}
-• 대상: 나주 시민 누구나
+• 대상: 시민 누구나
 • 문의: contact@ncpc.co.kr`}
           </div>
         </div>
@@ -290,7 +290,7 @@ export function EnrollmentModal({ isOpen, onClose }: {
   const [toastType, setToastType] = useState<'info' | 'success' | 'warning' | 'error'>('info');
 
   const handleEnrollment = () => {
-    setToastMessage('오프라인(현장) 신청만 가능합니다. 문화진흥센터를 방문해주세요.');
+    setToastMessage('오프라인(현장) 신청만 가능합니다. 문화센터 열림을 방문해주세요.');
     setToastType('info');
     setShowToast(true);
   };

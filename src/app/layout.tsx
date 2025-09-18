@@ -3,30 +3,30 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "문화진흥센터 나주 | 지역문화의 미래를 만들어갑니다",
-  description: "나주 문화진흥센터는 지역 문화예술의 발전과 시민의 문화적 삶의 질 향상을 위해 노력합니다",
-  keywords: "나주, 문화진흥센터, 문화예술, 지역문화, 문화프로그램, NCPC",
+  title: "나주 문화센터 열림 | 열린 문화, 함께하는 미래",
+  description: "나주 문화센터 열림은 지역 문화예술의 발전과 시민의 문화적 삶의 질 향상을 위해 노력합니다",
+  keywords: "나주문화센터, 문화센터열림, 나주문화센터열림, 나주, 열림, 문화예술, 지역문화, 문화프로그램",
   metadataBase: new URL('https://ncpc.co.kr'),
   openGraph: {
-    title: "문화진흥센터 나주",
-    description: "지역문화의 미래를 만들어갑니다",
+    title: "나주 문화센터 열림",
+    description: "나주 지역의 열린 문화, 함께하는 미래",
     type: "website",
     url: 'https://ncpc.co.kr',
-    siteName: '문화진흥센터 나주',
+    siteName: '나주 문화센터 열림',
     locale: 'ko_KR',
     images: [
       {
         url: 'https://ncpc.co.kr/og-image.png',
         width: 1200,
         height: 630,
-        alt: '문화진흥센터 나주',
+        alt: '나주 문화센터 열림',
       }
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: '문화진흥센터 나주',
-    description: '지역문화의 미래를 만들어갑니다',
+    title: '나주 문화센터 열림',
+    description: '나주 지역의 열린 문화, 함께하는 미래',
     images: ['https://ncpc.co.kr/og-image.png'],
   },
   icons: {
@@ -57,11 +57,11 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "문화진흥센터 나주",
-    "alternateName": "NCPC",
+    "name": "나주 문화센터 열림",
+    "alternateName": "Naju Yeolim Cultural Center",
     "url": "https://ncpc.co.kr",
     "logo": "https://ncpc.co.kr/logo.png",
-    "description": "나주 문화진흥센터는 지역 문화예술의 발전과 시민의 문화적 삶의 질 향상을 위해 노력합니다",
+    "description": "나주 문화센터 열림은 지역 문화예술의 발전과 시민의 문화적 삶의 질 향상을 위해 노력합니다",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "나주시",

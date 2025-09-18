@@ -46,7 +46,7 @@ export default function ServiceSection() {
                 주요 문화사업
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                나주 문화진흥센터는 다양한 문화예술 프로그램을 통해
+                문화센터 열림은 다양한 문화예술 프로그램을 통해
                 시민 여러분의 문화적 삶을 풍요롭게 만들어갑니다
               </p>
             </div>

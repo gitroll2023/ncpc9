@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>나주 문화진흥센터</title>
+    <title>나주 문화센터 열림</title>
     <link>https://ncpc.co.kr</link>
-    <description>나주 문화진흥센터 - 문화로 행복한 나주를 만들어갑니다</description>
+    <description>나주 문화센터 열림 - 열린 문화로 행복한 나주를 만들어갑니다</description>
     <language>ko-KR</language>
     <lastBuildDate>Sat, 14 Sep 2025 00:00:00 +0900</lastBuildDate>
     <atom:link href="https://ncpc.co.kr/rss.xml" rel="self" type="application/rss+xml"/>
@@ -29,7 +29,7 @@
     <item>
       <title>추석 연휴 운영시간 변경 안내</title>
       <link>https://ncpc.co.kr/#news</link>
-      <description>추석 연휴 기간 문화진흥센터 운영시간이 변경됩니다. 자세한 사항은 홈페이지를 참고해주세요.</description>
+      <description>추석 연휴 기간 문화센터 열림 운영시간이 변경됩니다. 자세한 사항은 홈페이지를 참고해주세요.</description>
       <pubDate>Sun, 01 Sep 2025 00:00:00 +0900</pubDate>
       <guid>https://ncpc.co.kr/news/2025-chuseok</guid>
       <category>공지</category>
@@ -56,7 +56,7 @@
     <item>
       <title>팟캐스트: 다함께 차차차! 문화가 있는 저녁 Episode 9</title>
       <link>https://ncpc.co.kr/</link>
-      <description>나주와 목포의 문화진흥센터 소식과 2025년 가을 축제 안내. 진행: 정다윤, 김상민</description>
+      <description>나주와 목포의 문화센터 소식과 2025년 가을 축제 안내. 진행: 정다윤, 김상민</description>
       <pubDate>Sat, 14 Sep 2025 00:00:00 +0900</pubDate>
       <guid>https://ncpc.co.kr/podcast/episode9</guid>
       <category>팟캐스트</category>

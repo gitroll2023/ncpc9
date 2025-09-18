@@ -200,7 +200,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             {/* Divider */}
             <div className="mt-6 pt-6 border-t border-gray-200">
               <p className="text-sm text-gray-600 text-center">
-                문화진흥센터 나주 회원 전용 서비스입니다.
+                문화센터 열림 회원 전용 서비스입니다.
               </p>
             </div>
           </div>

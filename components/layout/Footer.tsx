@@ -15,10 +15,10 @@ export default function Footer() {
           {/* Logo and Info */}
           <div>
             <h2 className="text-xl font-bold mb-4 text-white">
-              문화진흥센터 <span className="font-normal">나주</span>
+              문화센터 <span className="font-normal">열림</span>
             </h2>
             <p className="text-gray-300 text-sm leading-relaxed">
-              나주 문화진흥센터는 지역 문화예술의 발전과
+              문화센터 열림은 지역 문화예술의 발전과
               시민의 문화적 삶의 질 향상을 위해 노력합니다.
             </p>
           </div>
@@ -59,7 +59,7 @@ export default function Footer() {
         <div className="mt-8 pt-8 border-t border-gray-800">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-300">
-              © 2025 나주 문화진흥센터. All rights reserved.
+              © 2025 문화센터 열림. All rights reserved.
             </p>
             <button
               onClick={() => setIsLoginModalOpen(true)}

@@ -16,7 +16,7 @@ export function PerformanceModal({ isOpen, onClose }: {
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">프로그램 소개</h3>
           <p className="text-gray-700 leading-relaxed">
-            나주 문화진흥센터의 공연예술 프로그램은 클래식, 전통예술, 대중문화까지
+            문화센터 열림의 공연예술 프로그램은 클래식, 전통예술, 대중문화까지
             다양한 장르의 공연을 통해 시민들에게 최고의 문화예술 경험을 제공합니다.
           </p>
         </div>
@@ -95,7 +95,7 @@ export function ExhibitionModal({ isOpen, onClose }: {
           <h3 className="text-lg font-semibold text-gray-900 mb-3">전시 소개</h3>
           <p className="text-gray-700 leading-relaxed">
             지역 예술가들의 작품전시와 기획전시를 통해 시민들의 문화적 감성을 키우고,
-            나주의 예술 문화를 널리 알리는 전시 프로그램입니다.
+            지역의 예술 문화를 널리 알리는 전시 프로그램입니다.
           </p>
         </div>
 
@@ -141,7 +141,7 @@ export function EducationModal({ isOpen, onClose }: {
   const [toastType, setToastType] = useState<'info' | 'success' | 'warning' | 'error'>('info');
 
   const handleEducationApplication = () => {
-    setToastMessage('오프라인(현장) 신청만 가능합니다. 문화진흥센터를 방문해주세요.');
+    setToastMessage('오프라인(현장) 신청만 가능합니다. 문화센터 열림을 방문해주세요.');
     setToastType('info');
     setShowToast(true);
   };
@@ -200,7 +200,7 @@ export function CommunityModal({ isOpen, onClose }: {
   const [toastType, setToastType] = useState<'info' | 'success' | 'warning' | 'error'>('info');
 
   const handleClubApplication = () => {
-    setToastMessage('오프라인(현장) 신청만 가능합니다. 문화진흥센터를 방문해주세요.');
+    setToastMessage('오프라인(현장) 신청만 가능합니다. 문화센터 열림을 방문해주세요.');
     setToastType('info');
     setShowToast(true);
   };

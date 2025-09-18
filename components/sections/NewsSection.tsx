@@ -119,7 +119,7 @@ export default function NewsSection() {
               <AnimatedSection direction="up" delay={0}>
                 <div className="mb-10 text-center">
                   <h2 className="text-4xl font-bold text-gray-900 mb-3">알림마당</h2>
-                  <p className="text-lg text-gray-600">나주 문화진흥센터의 다양한 소식을 전해드립니다</p>
+                  <p className="text-lg text-gray-600">문화센터 열림의 다양한 소식을 전해드립니다</p>
                 </div>
               </AnimatedSection>
 

@@ -157,7 +157,7 @@ export default function PodcastSection() {
                   다함께 차차차! 문화가 있는 저녁
                 </h2>
                 <p className="text-blue-100 mb-4">
-                  나주와 목포의 문화진흥센터 소식과 2025년 가을 축제 안내
+                  나주와 목포의 문화센터 소식과 2025년 가을 축제 안내
                 </p>
                 <div className="flex items-center gap-4 text-sm text-blue-200">
                   <span className="flex items-center gap-1">

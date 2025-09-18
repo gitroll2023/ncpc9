@@ -267,7 +267,7 @@ export default function QuickMenu() {
             문화예술 프로그램에 관심이 있으신가요?
           </h3>
           <p className="text-white/90 mb-8 text-lg">
-            나주시민 여러분을 위한 다양한 문화예술 프로그램을 만나보세요
+            시민 여러분을 위한 다양한 문화예술 프로그램을 만나보세요
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm px-6 py-4 rounded">
