@@ -4,4 +4,4 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /static/
 
-Sitemap: https://ncpc.co.kr/sitemap.xml
+Sitemap: https://open.ncpc.co.kr/sitemap.xml

@@ -99,7 +99,7 @@ export default function NewsSection() {
       따뜻한 봄날, 사랑을 담은 감동적인 공연으로
       여러분을 초대합니다.
 
-      문의: contact@ncpc.co.kr`
+      문의: contact@open.ncpc.co.kr`
     }
   ];
 

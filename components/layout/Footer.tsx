@@ -29,7 +29,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm text-gray-300">
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <span>contact@ncpc.co.kr</span>
+                <span>contact@open.ncpc.co.kr</span>
               </div>
               <div className="text-gray-300 mt-3">
                 문화예술 프로그램 및 시설 대관 문의는
