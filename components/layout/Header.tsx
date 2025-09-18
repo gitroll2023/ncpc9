@@ -32,7 +32,7 @@ export default function Header() {
           <div className="flex-shrink-0">
             <a href="#" className="block">
               <h1 className="text-2xl font-bold text-[#003d7a] hover:text-[#002a56] transition-colors">
-                문화센터<span className="ml-2 text-xl font-normal">열림</span>
+                문화센터<span className="ml-1 text-sm font-normal">열림</span>
               </h1>
             </a>
           </div>
