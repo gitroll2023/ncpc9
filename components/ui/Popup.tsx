@@ -169,7 +169,7 @@ export default function Popup({ isOpen, onClose }: PopupProps) {
                       width: img.naturalWidth,
                       height: img.naturalHeight
                     });
-                  } else {
+                  } else if (popupData.imageUrl) {
                     // Fallback: 이미지 URL에서 직접 로드
                     const tempImg = new window.Image();
                     tempImg.onload = () => {
