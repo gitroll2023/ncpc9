@@ -11,6 +11,8 @@ interface Notice {
   date: string;
   isNew: boolean;
   fullContent?: string;
+  imageUrl?: string;
+  pdfUrl?: string;
 }
 
 export default function NewsSection() {
@@ -22,9 +24,28 @@ export default function NewsSection() {
   const notices = [
     {
       category: '행사',
+      title: '가을愛 문화를 담다',
+      date: '2025.11.08',
+      isNew: true,
+      imageUrl: '/1108.jpg',
+      pdfUrl: '/1108.pdf',
+      fullContent: `가을愛 문화를 담다 행사가 11월 8일(토)에 개최됩니다.
+
+      행사 정보:
+      - 일시: 2025년 11월 8일(토) 오후 2시~3시
+      - 장소: 나빌레라 문화센터
+      - 내용: 나주 시민 보컬 동호회 공연 및 미니 강연
+
+      가을의 아름다움과 문화예술을 함께 담아내는 특별한 시간입니다.
+      시민 여러분의 많은 관심과 참여를 부탁드립니다.
+
+      행사 상세 일정 및 프로그램 안내는 첨부된 PDF 파일을 참고해 주세요.`
+    },
+    {
+      category: '행사',
       title: '나주포차',
       date: '2025.09.05',
-      isNew: true,
+      isNew: false,
       fullContent: `나주포차가 9월 5일(금)부터 6일(토)까지 개최됩니다.
 
       행사 정보:

@@ -102,19 +102,30 @@ export default function Popup({ isOpen, onClose }: PopupProps) {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn p-2 sm:p-4">
-      <div className="relative bg-white rounded-lg sm:rounded-xl shadow-2xl w-full mx-auto overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh]"
-           style={{
-             maxWidth: imageSize 
-               ? `min(95vw, ${Math.min(imageSize.width + 40, 1200)}px)`
-               : '95vw'
-           }}>
+    <div 
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn p-2 sm:p-4"
+      onClick={(e) => {
+        // 배경을 클릭했을 때만 닫기
+        if (e.target === e.currentTarget) {
+          handleClose();
+        }
+      }}
+    >
+      <div 
+        className="relative bg-white rounded-lg sm:rounded-xl shadow-2xl mx-auto overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh]"
+        style={{
+          width: isMobile ? '95vw' : 'min(50vw, 600px)',
+          maxWidth: isMobile ? '95vw' : '600px'
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header - 컴팩트하게 */}
         <div className="relative bg-gradient-to-br from-[#003d7a] to-[#0066cc] px-3 py-2 sm:px-4 sm:py-3 text-white flex-shrink-0">
           <button
             onClick={handleClose}
-            className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1.5 hover:bg-white/30 rounded-full transition-all duration-200 z-10 group hover:scale-110 active:scale-95"
+            className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1.5 hover:bg-white/30 rounded-full transition-all duration-200 z-20 group hover:scale-110 active:scale-95 cursor-pointer"
             aria-label="닫기"
+            type="button"
           >
             <X className="h-4 w-4 sm:h-5 sm:w-5 text-white group-hover:rotate-90 transition-transform duration-200" />
           </button>
@@ -157,7 +168,7 @@ export default function Popup({ isOpen, onClose }: PopupProps) {
                 src={popupData.imageUrl}
                 alt={popupData.title || "공지사항 이미지"}
                 fill
-                className={`object-contain sm:object-cover transition-opacity duration-300 ${
+                className={`object-contain transition-opacity duration-300 ${
                   imageLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
                 sizes="(max-width: 640px) 95vw, (max-width: 768px) 90vw, (max-width: 1200px) 90vw, 1200px"
@@ -201,12 +212,13 @@ export default function Popup({ isOpen, onClose }: PopupProps) {
           </div>
         )}
 
-        {/* Footer Controls - 항상 표시 */}
-        <div className="px-3 py-2 sm:px-4 sm:py-3 border-t border-gray-200 flex justify-between items-center flex-shrink-0 bg-white">
+        {/* Footer Controls - 항상 표시, 테블릿에서도 잘 보이도록 */}
+        <div className="px-4 py-3 sm:px-6 sm:py-4 border-t border-gray-200 flex justify-between items-center flex-shrink-0 bg-white min-h-[56px]">
           {isAutoPopup ? (
             <button
               onClick={handleDontShowToday}
-              className="text-xs sm:text-sm text-gray-600 hover:text-gray-800 hover:underline transition-colors"
+              className="text-sm sm:text-base text-gray-600 hover:text-gray-800 hover:underline transition-colors cursor-pointer py-2 px-2"
+              type="button"
             >
               1일간 보지 않기
             </button>
@@ -215,7 +227,8 @@ export default function Popup({ isOpen, onClose }: PopupProps) {
           )}
           <button
             onClick={handleClose}
-            className="text-xs sm:text-sm text-gray-600 hover:text-gray-800 hover:underline transition-colors font-medium"
+            className="text-sm sm:text-base text-gray-600 hover:text-gray-800 hover:underline transition-colors font-medium cursor-pointer py-2 px-2"
+            type="button"
           >
             닫기
           </button>

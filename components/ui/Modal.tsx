@@ -1,8 +1,9 @@
 "use client";
 
-import { X, Calendar, User, FileText } from 'lucide-react';
+import { X, Calendar, User, FileText, Download } from 'lucide-react';
 import { ReactNode, useState } from 'react';
 import { Toast } from './Toast';
+import Image from 'next/image';
 
 interface ModalProps {
   isOpen: boolean;
@@ -43,6 +44,8 @@ interface Notice {
   category?: string;
   date?: string;
   fullContent?: string;
+  imageUrl?: string;
+  pdfUrl?: string;
 }
 
 export function NoticeModal({ notice, isOpen, onClose }: {
@@ -103,32 +106,38 @@ ${notice?.title}에 대한 자세한 내용을 안내드립니다.
         </div>
 
         {/* Attachments */}
-        <div className="border-t pt-4">
-          <h3 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
-            <FileText className="h-4 w-4" />
-            첨부파일
-          </h3>
-          <div className="space-y-2">
-            <button
-              onClick={handleDownloadClick}
-              className="flex items-center justify-between w-full p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group"
-            >
-              <div className="flex items-center gap-2 text-sm">
-                <span>📎 {notice?.title?.slice(0, 20)}_상세안내.pdf</span>
-                <span className="text-gray-500">(2.3MB)</span>
+        {(notice?.pdfUrl || notice?.title) && (
+          <div className="border-t pt-4">
+            <h3 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              첨부파일
+            </h3>
+            <div className="space-y-2">
+              <button
+                onClick={handleDownloadClick}
+                className="flex items-center justify-between w-full p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group"
+              >
+                <div className="flex items-center gap-2 text-sm">
+                  <Download className="h-4 w-4 text-gray-500" />
+                  <span>{notice?.title?.slice(0, 20) || '행사안내'}_상세안내.pdf</span>
+                  <span className="text-gray-500">(2.3MB)</span>
+                </div>
+                <span className="text-xs text-gray-500 group-hover:text-blue-600 flex items-center gap-1">
+                  <Download className="h-3 w-3" />
+                  다운로드
+                </span>
+              </button>
+            </div>
+            {!notice?.pdfUrl && (
+              <div className="mt-2 p-3 bg-yellow-50 rounded-lg flex items-start gap-2">
+                <span className="text-yellow-600 text-lg">⚠️</span>
+                <p className="text-xs text-yellow-800">
+                  첨부파일 다운로드는 로그인한 회원만 가능합니다.
+                </p>
               </div>
-              <span className="text-xs text-gray-500 group-hover:text-blue-600">
-                다운로드
-              </span>
-            </button>
+            )}
           </div>
-          <div className="mt-2 p-3 bg-yellow-50 rounded-lg flex items-start gap-2">
-            <span className="text-yellow-600 text-lg">⚠️</span>
-            <p className="text-xs text-yellow-800">
-              첨부파일 다운로드는 로그인한 회원만 가능합니다.
-            </p>
-          </div>
-        </div>
+        )}
       </div>
       {showToast && (
         <Toast

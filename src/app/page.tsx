@@ -18,6 +18,8 @@ export default function Home() {
   };
 
   const handlePopupClose = () => {
+    // 팝업을 닫을 때는 undefined로 리셋하여 자동 팝업이 다시 작동할 수 있도록 함
+    // 하지만 localStorage에 저장된 경우에는 다시 나타나지 않음
     setIsPopupOpen(false);
   };
 
