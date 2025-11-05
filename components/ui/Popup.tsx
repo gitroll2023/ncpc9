@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { X, Calendar, ChevronRight } from 'lucide-react';
+import { X, Calendar, ChevronRight, Image as ImageIcon } from 'lucide-react';
+import Image from 'next/image';
 
 interface PopupData {
   id: number;
@@ -12,6 +13,8 @@ interface PopupData {
   startDate?: string;
   endDate: string;
   link?: string;
+  imageUrl?: string;
+  imageDescription?: string;
 }
 
 interface PopupProps {
@@ -22,41 +25,64 @@ interface PopupProps {
 export default function Popup({ isOpen, onClose }: PopupProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAutoPopup, setIsAutoPopup] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const popupData: PopupData = {
     id: 1,
-    title: "2025 인문학 강연",
-    subtitle: "삶의 깊이를 더하는 시간",
-    content: "2025년 9월 16일부터\n인문학 강연이 진행됩니다.",
-    theme: "인문학이란?",
-    endDate: "2025.09.20",
-    link: "#humanities"
+    title: "공지사항",
+    subtitle: "중요 안내",
+    content: "",
+    theme: "",
+    endDate: "",
+    link: "",
+    imageUrl: "/1108.jpg",
+    imageDescription: "중요한 공지사항을 확인해 주시기 바랍니다."
   };
 
   useEffect(() => {
-    // 외부에서 제어되는 경우 (버튼으로 열린 경우)
-    if (isOpen !== undefined) {
-      setIsVisible(isOpen);
-      setIsAutoPopup(false); // 버튼으로 열린 경우
+    // 외부에서 명시적으로 열라고 한 경우 (isOpen === true)
+    if (isOpen === true) {
+      setIsVisible(true);
+      setIsAutoPopup(false);
       return;
     }
 
-    // 자동 팝업 로직 (기존)
-    const today = new Date();
-    const todayStr = today.toDateString();
-
-    const hideUntil = localStorage.getItem(`popup_hide_until`);
-
-    if (hideUntil) {
-      const hideDate = new Date(hideUntil);
-      if (today < hideDate) {
-        setIsVisible(false);
-        return;
-      }
+    // 외부에서 명시적으로 닫으라고 한 경우 (isOpen === false)
+    if (isOpen === false) {
+      setIsVisible(false);
+      setIsAutoPopup(false);
+      return;
     }
 
-    setIsVisible(true);
-    setIsAutoPopup(true); // 자동으로 열린 경우
+    // 자동 팝업 로직 (isOpen이 undefined일 때만)
+    if (isOpen === undefined) {
+      const today = new Date();
+      const hideUntil = localStorage.getItem(`popup_hide_until`);
+
+      if (hideUntil) {
+        const hideDate = new Date(hideUntil);
+        if (today < hideDate) {
+          setIsVisible(false);
+          setIsAutoPopup(false);
+          return;
+        }
+      }
+
+      // 자동 팝업 표시
+      setIsVisible(true);
+      setIsAutoPopup(true);
+    }
   }, [isOpen]);
 
   const handleClose = () => {
@@ -76,82 +102,123 @@ export default function Popup({ isOpen, onClose }: PopupProps) {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn">
-      <div className="relative bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
-        {/* Premium Header Design */}
-        <div className="relative bg-gradient-to-br from-[#003d7a] to-[#0066cc] p-8 text-white">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn p-2 sm:p-4">
+      <div className="relative bg-white rounded-lg sm:rounded-xl shadow-2xl w-full mx-auto overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh]"
+           style={{
+             maxWidth: imageSize 
+               ? `min(95vw, ${Math.min(imageSize.width + 40, 1200)}px)`
+               : '95vw'
+           }}>
+        {/* Header - 컴팩트하게 */}
+        <div className="relative bg-gradient-to-br from-[#003d7a] to-[#0066cc] px-3 py-2 sm:px-4 sm:py-3 text-white flex-shrink-0">
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 p-2 hover:bg-white/20 rounded-full transition-colors z-10"
+            className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1.5 hover:bg-white/30 rounded-full transition-all duration-200 z-10 group hover:scale-110 active:scale-95"
             aria-label="닫기"
           >
-            <X className="h-5 w-5 text-white" />
+            <X className="h-4 w-4 sm:h-5 sm:w-5 text-white group-hover:rotate-90 transition-transform duration-200" />
           </button>
 
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 mb-3">
-              <Calendar className="h-5 w-5 text-white/80" />
-              <span className="text-sm font-medium text-white/90">Special Lecture</span>
-            </div>
-
-            <h2 className="text-2xl font-bold mb-2 text-white">
-              {popupData.title}
-            </h2>
-
+          <div className="relative z-10 pr-8">
+            {popupData.title && (
+              <h2 className="text-sm sm:text-lg font-bold text-white">
+                {popupData.title}
+              </h2>
+            )}
             {popupData.subtitle && (
-              <p className="text-lg text-white/90 font-light italic">
+              <p className="text-xs sm:text-sm text-white/90 font-light">
                 {popupData.subtitle}
               </p>
             )}
           </div>
         </div>
 
-        {/* Content Section */}
-        <div className="p-8">
-          <div className="text-center">
-            <p className="text-xl font-medium text-gray-800 mb-4 whitespace-pre-line">
-              {popupData.content}
-            </p>
-
-            {popupData.theme && (
-              <div className="mt-6">
-                <div className="rounded-lg p-6 bg-white relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#003d7a] to-[#0066cc]"></div>
-                  <div className="text-center">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#003d7a] text-white text-xs font-medium rounded-full mb-4">
-                      <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
-                      1회차 강연주제
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-800 leading-tight">
-                      {popupData.theme}
-                    </h3>
+        {/* Image Section - 여백 최소화, 반응형 처리 */}
+        {popupData.imageUrl && (
+          <div className="relative w-full flex-shrink-0 overflow-auto">
+            <div className="relative w-full overflow-hidden" style={{
+              aspectRatio: imageSize 
+                ? `${imageSize.width} / ${imageSize.height}`
+                : 'auto',
+              minHeight: '150px',
+              maxHeight: isMobile 
+                ? 'calc(95vh - 100px)' 
+                : 'calc(90vh - 120px)'
+            }}>
+              {!imageLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                  <div className="animate-pulse flex flex-col items-center gap-2">
+                    <ImageIcon className="h-8 w-8 text-gray-400" />
+                    <span className="text-sm text-gray-500">이미지 로딩 중...</span>
                   </div>
                 </div>
+              )}
+              <Image
+                src={popupData.imageUrl}
+                alt={popupData.title || "공지사항 이미지"}
+                fill
+                className={`object-contain sm:object-cover transition-opacity duration-300 ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                sizes="(max-width: 640px) 95vw, (max-width: 768px) 90vw, (max-width: 1200px) 90vw, 1200px"
+                onLoad={(e) => {
+                  setImageLoaded(true);
+                  const img = e.currentTarget as HTMLImageElement;
+                  if (img && img.naturalWidth && img.naturalHeight) {
+                    setImageSize({
+                      width: img.naturalWidth,
+                      height: img.naturalHeight
+                    });
+                  } else {
+                    // Fallback: 이미지 URL에서 직접 로드
+                    const tempImg = new window.Image();
+                    tempImg.onload = () => {
+                      setImageSize({
+                        width: tempImg.naturalWidth,
+                        height: tempImg.naturalHeight
+                      });
+                    };
+                    tempImg.src = popupData.imageUrl;
+                  }
+                }}
+                priority
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Description Section - 컴팩트하게 */}
+        {popupData.imageDescription && (
+          <div className="px-3 py-2 sm:px-4 sm:py-3 flex-shrink-0 bg-white border-t border-gray-200">
+            <div className="flex items-start gap-2">
+              <div className="flex-shrink-0 mt-1">
+                <div className="w-1 h-1 bg-[#003d7a] rounded-full"></div>
               </div>
-            )}
+              <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                {popupData.imageDescription}
+              </p>
+            </div>
           </div>
+        )}
 
-
-          {/* Footer Controls */}
-          <div className="mt-6 pt-6 border-t border-gray-200 flex justify-between items-center">
-            {isAutoPopup && (
-              <button
-                onClick={handleDontShowToday}
-                className="text-sm text-gray-600 hover:text-gray-800 hover:underline transition-colors"
-              >
-                1일간 보지 않기
-              </button>
-            )}
+        {/* Footer Controls - 항상 표시 */}
+        <div className="px-3 py-2 sm:px-4 sm:py-3 border-t border-gray-200 flex justify-between items-center flex-shrink-0 bg-white">
+          {isAutoPopup ? (
             <button
-              onClick={handleClose}
-              className={`text-sm text-gray-600 hover:text-gray-800 hover:underline transition-colors ${!isAutoPopup ? 'ml-auto' : ''}`}
+              onClick={handleDontShowToday}
+              className="text-xs sm:text-sm text-gray-600 hover:text-gray-800 hover:underline transition-colors"
             >
-              닫기
+              1일간 보지 않기
             </button>
-          </div>
+          ) : (
+            <div></div>
+          )}
+          <button
+            onClick={handleClose}
+            className="text-xs sm:text-sm text-gray-600 hover:text-gray-800 hover:underline transition-colors font-medium"
+          >
+            닫기
+          </button>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ import Footer from '../../components/layout/Footer';
 import Popup from '../../components/ui/Popup';
 
 export default function Home() {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean | undefined>(undefined);
 
   const handleNewsClick = () => {
     setIsPopupOpen(true);
@@ -32,6 +32,8 @@ export default function Home() {
         <NewsSection />
       </main>
       <Footer />
+      {/* 자동 팝업: isOpen이 undefined일 때 자동 팝업 활성화 */}
+      {/* 수동 팝업: isOpen이 true일 때 표시 */}
       <Popup isOpen={isPopupOpen} onClose={handlePopupClose} />
     </div>
   );
