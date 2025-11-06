@@ -7,6 +7,7 @@ import AboutSection from '../../components/sections/AboutSection';
 import PodcastSection from '../../components/sections/PodcastSection';
 import ServiceSection from '../../components/sections/ServiceSection';
 import NewsSection from '../../components/sections/NewsSection';
+import OrganizationApplicationSection from '../../components/sections/OrganizationApplicationSection';
 import Footer from '../../components/layout/Footer';
 import Popup from '../../components/ui/Popup';
 
@@ -32,6 +33,7 @@ export default function Home() {
         <PodcastSection />
         <ServiceSection />
         <NewsSection />
+        <OrganizationApplicationSection />
       </main>
       <Footer />
       {/* 자동 팝업: isOpen이 undefined일 때 자동 팝업 활성화 */}
