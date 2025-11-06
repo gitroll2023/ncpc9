@@ -1,8 +1,9 @@
 "use client";
 
-import { X, CheckCircle2, AlertCircle, FileText, Users, MapPin, Calendar, User, Phone, Mail, Building2, Award } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle, FileText, Users, MapPin, Calendar, User, Phone, Mail, Building2, Award, Download } from 'lucide-react';
 import { useState } from 'react';
 import Modal from './Modal';
+import { Toast } from './Toast';
 
 // 참여 조건 모달
 export function ParticipationConditionsModal({ 
@@ -474,6 +475,17 @@ export function OrganizationListModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState<'info' | 'success' | 'warning' | 'error'>('warning');
+
+  const handleDownloadClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setToastMessage('회원 로그인 후 다운로드 가능합니다.');
+    setToastType('warning');
+    setShowToast(true);
+  };
+
   const organizations = [
     '드림캐쳐 문화플랫폼',
     '행복 공방',
@@ -527,6 +539,53 @@ export function OrganizationListModal({
           </div>
         </div>
 
+        {/* 평가 신청서 다운로드 */}
+        <div className="border-t pt-6">
+          <h3 className="font-bold text-gray-900 text-lg mb-4 flex items-center gap-2">
+            <FileText className="h-5 w-5 text-[#003d7a]" />
+            평가 신청서 다운로드
+          </h3>
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <p className="text-sm text-gray-700 leading-relaxed mb-3">
+              예비 단체로 선정된 단체는 아래 평가 신청서를 다운로드하여 작성 후, 
+              <strong className="text-[#003d7a]"> 문화센터 열림</strong>으로 메일 제출해주시기 바랍니다.
+            </p>
+            <div className="flex items-start gap-2 text-xs text-gray-600">
+              <span className="text-blue-600 mt-0.5">📧</span>
+              <span>제출 이메일: contact@ncpc.co.kr</span>
+            </div>
+          </div>
+          <button
+            onClick={handleDownloadClick}
+            className="flex items-center justify-between w-full p-4 bg-white border-2 border-[#003d7a] rounded-lg hover:bg-[#003d7a] hover:text-white transition-all duration-300 group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#003d7a]/10 group-hover:bg-white/20 rounded-lg flex items-center justify-center">
+                <Download className="h-5 w-5 text-[#003d7a] group-hover:text-white transition-colors" />
+              </div>
+              <div className="text-left">
+                <div className="font-semibold text-gray-900 group-hover:text-white transition-colors">
+                  원데이 클래스 및 동호회 평가 신청서.pdf
+                </div>
+                <div className="text-xs text-gray-500 group-hover:text-white/80 transition-colors mt-0.5">
+                  파일 크기: 2.3MB
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-[#003d7a] group-hover:text-white transition-colors">
+              <span className="font-medium">다운로드</span>
+              <Download className="h-4 w-4" />
+            </div>
+          </button>
+          <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start gap-2">
+            <span className="text-yellow-600 text-lg">⚠️</span>
+            <p className="text-xs text-yellow-800 leading-relaxed">
+              평가 신청서 다운로드는 로그인한 회원만 가능합니다. 
+              예비 단체 대표자는 회원 로그인 후 다운로드하여 작성해주세요.
+            </p>
+          </div>
+        </div>
+
         {/* 추가 안내 */}
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
           <p className="text-sm text-gray-700 leading-relaxed">
@@ -543,6 +602,14 @@ export function OrganizationListModal({
           확인
         </button>
       </div>
+      {showToast && (
+        <Toast
+          message={toastMessage}
+          type={toastType}
+          duration={3000}
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </Modal>
   );
 }
