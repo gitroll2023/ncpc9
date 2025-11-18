@@ -12,7 +12,8 @@ import Footer from '../../components/layout/Footer';
 import Popup from '../../components/ui/Popup';
 
 export default function Home() {
-  const [isPopupOpen, setIsPopupOpen] = useState<boolean | undefined>(undefined);
+  // 팝업을 false로 설정하여 비활성화 (나중에 다시 활성화하려면 undefined로 변경)
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean | undefined>(false);
 
   const handleNewsClick = () => {
     setIsPopupOpen(true);

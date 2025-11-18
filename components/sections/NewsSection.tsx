@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Calendar } from 'lucide-react';
 import { NoticeModal, BookingModal, EnrollmentModal } from '../ui/Modal';
 import AnimatedSection from '../ui/AnimatedSection';
+import PhotoGallery from '../ui/PhotoGallery';
 
 interface Notice {
   category: string;
@@ -183,6 +184,16 @@ export default function NewsSection() {
                 ))}
               </div>
             </div>
+
+            {/* 사진 갤러리 섹션 추가 */}
+            <AnimatedSection direction="up" delay={300}>
+              <div className="mt-20">
+                <PhotoGallery
+                  title="가을愛 문화를 담다 - 행사 사진"
+                  subtitle="2025년 11월 8일, 나빌레라 문화센터에서 열린 특별한 순간들"
+                />
+              </div>
+            </AnimatedSection>
 
           </div>
         </AnimatedSection>
