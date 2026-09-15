@@ -59,7 +59,7 @@ export default function Footer() {
         <div className="mt-8 pt-8 border-t border-gray-800">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-300">
-              © 2025 문화센터 열림. All rights reserved.
+              © 2020–2026 문화센터 열림. All rights reserved.
             </p>
             <button
               onClick={() => setIsLoginModalOpen(true)}

@@ -407,7 +407,7 @@ export default function AboutSection() {
 
               {/* Vision Box */}
               <div className="mt-8 p-6 border-l-4 border-[#003d7a] bg-gray-50">
-                <h4 className="font-bold text-lg text-[#003d7a] mb-2">VISION 2025</h4>
+                <h4 className="font-bold text-lg text-[#003d7a] mb-2">VISION 2026</h4>
                 <p className="text-gray-700">
                   "열린 문화로 하나되는 행복한 나주, 시민과 함께 만들어가는 문화도시"
                 </p>

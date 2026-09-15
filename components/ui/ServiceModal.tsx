@@ -22,7 +22,7 @@ export function PerformanceModal({ isOpen, onClose }: {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">2025년 주요 공연</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">지난 공연 · 2025 아카이브</h3>
           <div className="space-y-3">
             <div className="border-l-4 border-[#003d7a] pl-4 py-2">
               <div className="font-medium text-gray-900">사랑愛담다</div>

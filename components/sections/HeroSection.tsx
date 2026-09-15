@@ -3,11 +3,6 @@
 import { ArrowRight, Bell } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import AnimatedSection from '../ui/AnimatedSection';
-import { useScrollAnimation } from '../../lib/useScrollAnimation';
-
-interface HeroSectionProps {
-  onNewsClick?: () => void;
-}
 
 // 카운트업 애니메이션 훅 (즉시 시작)
 function useCountUp(end: number, duration: number = 2000) {
@@ -42,7 +37,7 @@ function useCountUp(end: number, duration: number = 2000) {
   return count;
 }
 
-export default function HeroSection({ onNewsClick }: HeroSectionProps) {
+export default function HeroSection() {
   const yearsCount = useCountUp(25, 2000);
   const visitorsCount = useCountUp(50, 2500);
   const daysCount = useCountUp(365, 3000);
@@ -62,7 +57,7 @@ export default function HeroSection({ onNewsClick }: HeroSectionProps) {
             {/* Category Badge */}
             <AnimatedSection delay={0} direction="up">
               <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-6">
-                <span className="text-white text-sm font-medium">열린 문화의 중심</span>
+                <span className="text-white text-sm font-medium">2026 · 시민과 이어가는 문화 활동</span>
               </div>
             </AnimatedSection>
 
@@ -92,8 +87,8 @@ export default function HeroSection({ onNewsClick }: HeroSectionProps) {
                   <span className="relative z-10">프로그램 안내</span>
                   <ArrowRight className="ml-2 h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
                 </a>
-                <button
-                  onClick={onNewsClick}
+                <a
+                  href="#news"
                   className="group relative inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-500 border border-white/20 hover:border-white/40 hover:-translate-y-1 overflow-hidden"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
@@ -102,8 +97,8 @@ export default function HeroSection({ onNewsClick }: HeroSectionProps) {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <Bell className="mr-2 h-5 w-5 relative z-10 group-hover:animate-pulse" />
-                  <span className="relative z-10">최신소식</span>
-                </button>
+                  <span className="relative z-10">2026 활동소식</span>
+                </a>
               </div>
             </AnimatedSection>
 

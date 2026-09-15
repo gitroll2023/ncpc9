@@ -5,8 +5,26 @@
     <link>https://ncpc.co.kr</link>
     <description>나주 문화센터 열림 - 열린 문화로 행복한 나주를 만들어갑니다</description>
     <language>ko-KR</language>
-    <lastBuildDate>Sat, 14 Sep 2025 00:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2026 00:00:00 +0900</lastBuildDate>
     <atom:link href="https://ncpc.co.kr/rss.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>2026년 9월 가을 생활문화 프로그램 운영</title>
+      <link>https://ncpc.co.kr/#news</link>
+      <description>가을을 맞아 시민과 동호회가 함께하는 생활문화 활동을 이어갑니다.</description>
+      <pubDate>Sat, 12 Sep 2026 00:00:00 +0900</pubDate>
+      <guid>https://ncpc.co.kr/news/2026-september-activity</guid>
+      <category>활동</category>
+    </item>
+
+    <item>
+      <title>2026년 상반기 활동 돌아보기</title>
+      <link>https://ncpc.co.kr/#news</link>
+      <description>1월부터 6월까지 이어온 시민동호회 모임과 생활문화 프로그램을 돌아봅니다.</description>
+      <pubDate>Sat, 27 Jun 2026 00:00:00 +0900</pubDate>
+      <guid>https://ncpc.co.kr/news/2026-first-half</guid>
+      <category>기록</category>
+    </item>
 
     <item>
       <title>2025 나주 문화예술 페스티벌 개최 안내</title>
@@ -53,13 +71,5 @@
       <category>공지</category>
     </item>
 
-    <item>
-      <title>팟캐스트: 다함께 차차차! 문화가 있는 저녁 Episode 9</title>
-      <link>https://ncpc.co.kr/</link>
-      <description>나주와 목포의 문화센터 소식과 2025년 가을 축제 안내. 진행: 정다윤, 김상민</description>
-      <pubDate>Sat, 14 Sep 2025 00:00:00 +0900</pubDate>
-      <guid>https://ncpc.co.kr/podcast/episode9</guid>
-      <category>팟캐스트</category>
-    </item>
   </channel>
 </rss>
