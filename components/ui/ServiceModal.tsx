@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import Modal from './Modal';
 import { Calendar, Check } from 'lucide-react';
 import { useState } from 'react';
@@ -131,61 +132,61 @@ export function ExhibitionModal({ isOpen, onClose }: {
   );
 }
 
-// 문화교육 모달
+// 고전 인문학 모달
 export function EducationModal({ isOpen, onClose }: {
   isOpen: boolean;
   onClose: () => void;
 }) {
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState<'info' | 'success' | 'warning' | 'error'>('info');
-
-  const handleEducationApplication = () => {
-    setToastMessage('오프라인(현장) 신청만 가능합니다. 문화센터 열림을 방문해주세요.');
-    setToastType('info');
-    setShowToast(true);
-  };
+  const classics = [
+    { title: '논어', image: '/images/classics/analects.webp' },
+    { title: '대학', image: '/images/classics/great-learning.webp' },
+    { title: '사서삼경', image: '/images/classics/four-books-three-classics.webp' },
+    { title: '성경', image: '/images/classics/bible.webp' },
+  ];
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="문화교육 프로그램">
-      <div className="space-y-6">
+    <Modal isOpen={isOpen} onClose={onClose} title="고전 인문학">
+      <div className="space-y-8">
         <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">교육 프로그램 소개</h3>
-          <p className="text-gray-700 leading-relaxed">
-            어린이부터 성인까지 모든 연령층을 위한 체계적인 문화예술 교육프로그램을 제공합니다.
-            전문 강사진과 함께 예술적 감성과 창의력을 키워보세요.
-          </p>
-        </div>
-
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">문화교육 프로그램</h3>
-          <div className="space-y-3">
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <p className="text-gray-700">
-                현재 다양한 문화예술 교육 프로그램을 준비 중입니다.
-              </p>
-              <p className="text-sm text-gray-600 mt-2">
-                어린이부터 성인까지 모든 연령층을 위한 체계적인 문화예술 교육프로그램을 제공할 예정입니다.
-              </p>
-            </div>
+          <div className="space-y-4 text-gray-700 leading-relaxed">
+            <p>
+              수천 년을 이어온 고전과 경서 속에는 시대를 관통하는 진리가 숨 쉬고 있습니다.
+            </p>
+            <p>
+              분야별 전문 강사진의 깊이 있는 안내를 통해 세상을 꿰뚫어 보는 예리한 통찰과 삶의 지혜를 만나보세요.
+            </p>
+            <p>
+              더 나은 인생, 그리고 진정한 행복을 향해 나아가는 가장 고귀한 여정으로 당신을 초대합니다.
+            </p>
           </div>
         </div>
 
-
-        <div className="bg-blue-50 p-4 rounded-lg">
-          <p className="text-sm text-blue-800 font-medium">
-            ℹ️ 온라인 신청은 준비 중입니다. 현재는 오프라인(현장) 신청만 가능합니다.
-          </p>
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">고전 소개</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {classics.map((classic) => (
+              <article
+                key={classic.title}
+                className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
+              >
+                <div className="relative aspect-[3/2] overflow-hidden bg-gray-100">
+                  <Image
+                    src={classic.image}
+                    alt={`${classic.title} 고전 이미지`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 300px"
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+                <h4 className="px-4 py-3 text-center font-semibold text-gray-900">
+                  {classic.title}
+                </h4>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
-      {showToast && (
-        <Toast
-          message={toastMessage}
-          type={toastType}
-          duration={3000}
-          onClose={() => setShowToast(false)}
-        />
-      )}
     </Modal>
   );
 }

@@ -23,8 +23,8 @@ export default function ServiceSection() {
     },
     {
       icon: GraduationCap,
-      title: '문화교육',
-      description: '어린이부터 성인까지 체계적인 문화예술 교육프로그램을 제공합니다.',
+      title: '고전 인문학',
+      description: '수천 년을 이어온 고전과 경서에서 시대를 관통하는 진리와 삶의 지혜를 만납니다.',
       modalKey: 'education'
     },
     {
