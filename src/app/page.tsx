@@ -1,6 +1,7 @@
 import Header from '../../components/layout/Header';
 import HeroSection from '../../components/sections/HeroSection';
 import AboutSection from '../../components/sections/AboutSection';
+import GreetingSection from '../../components/sections/GreetingSection';
 import ServiceSection from '../../components/sections/ServiceSection';
 import NewsSection from '../../components/sections/NewsSection';
 import OrganizationApplicationSection from '../../components/sections/OrganizationApplicationSection';
@@ -13,6 +14,7 @@ export default function Home() {
       <main className="pt-20 w-full overflow-x-hidden">
         <HeroSection />
         <AboutSection />
+        <GreetingSection />
         <ServiceSection />
         <NewsSection />
         <OrganizationApplicationSection />

@@ -17,6 +17,7 @@ export default function Header() {
 
   const menuItems = [
     { name: '센터소개', href: '#about' },
+    { name: '원장 인사말', href: '#greeting' },
     { name: '프로그램', href: '#programs' },
     { name: '활동소식', href: '#news' },
   ];
