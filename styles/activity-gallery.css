@@ -13,44 +13,20 @@
 .activity-gallery-note svg { flex-shrink: 0; margin-top: 2px; }
 .activity-gallery-note p { color: #6b7972; font-size: 12px; line-height: 1.7; word-break: keep-all; }
 .activity-gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.activity-photo-card { min-width: 0; width: 100%; text-align: left; border: 1px solid #dfe5e0; border-radius: 12px; background: #fff; overflow: hidden; transition: border-color 180ms, box-shadow 180ms; }
-.activity-photo-card:hover { border-color: #79948b; box-shadow: 0 8px 24px rgba(26, 55, 43, .08); }
+.activity-photo-card { min-width: 0; width: 100%; text-align: left; border: 1px solid #dfe5e0; border-radius: 12px; background: #fff; overflow: hidden; }
 .activity-photo-frame { position: relative; aspect-ratio: 4 / 3; background: #eef1ec; overflow: hidden; }
-.activity-photo-thumbnail { object-fit: contain; }
+.activity-photo-thumbnail { object-fit: cover; object-position: center; }
 .activity-photo-category { position: absolute; top: 12px; left: 12px; padding: 5px 9px; border-radius: 5px; background: rgba(255, 255, 255, .95); color: #24483b; font-size: 11px; font-weight: 650; }
-.activity-photo-zoom { position: absolute; top: 10px; right: 10px; display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(255, 255, 255, .94); color: #24483b; }
 .activity-photo-kind { position: absolute; right: 12px; bottom: 12px; padding: 5px 9px; border-radius: 5px; background: #173f56; color: #fff; font-size: 11px; font-weight: 600; }
 .activity-photo-caption { padding: 18px; }
 .activity-photo-caption h4 { color: #203e4c; font-size: 17px; line-height: 1.4; word-break: keep-all; }
 .activity-photo-caption p { color: #68756e; font-size: 13px; line-height: 1.75; margin-top: 7px; word-break: keep-all; }
-.activity-photo-link { display: flex; align-items: center; gap: 5px; color: #365a4d; font-size: 12px; font-weight: 600; margin-top: 16px; }
 .activity-gallery-more { display: flex; justify-content: center; margin-top: 26px; }
 .activity-gallery-more button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 24px; border: 1px solid #cbd8ce; border-radius: 6px; background: #fff; color: #24483b; font-size: 14px; font-weight: 600; }
 .activity-gallery-more button:hover { background: #f2f5ef; }
 .activity-gallery-more button span { font-size: 12px; font-weight: 400; color: #6b7972; }
-.activity-photo-dialog { width: min(1100px, 96vw); max-width: none; max-height: 94dvh; margin: auto; padding: 0; border: 1px solid #3a4c56; border-radius: 12px; background: #102635; color: #fff; overflow: auto; }
-.activity-photo-dialog::backdrop { background: rgba(3, 13, 20, .86); }
-.activity-photo-dialog-content { display: flex; flex-direction: column; }
-.activity-photo-dialog-header { display: flex; align-items: center; justify-content: space-between; min-height: 60px; padding: 8px 18px; border-bottom: 1px solid #29404d; }
-.activity-photo-dialog-header > span { font-size: 13px; font-weight: 500; color: #dbe5e9; }
-.activity-photo-dialog-header button { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; border-radius: 6px; color: #fff; }
-.activity-photo-dialog-header button:hover { background: #27404e; }
-.activity-photo-dialog-image { position: relative; height: clamp(180px, 62dvh, 670px); background: #091b27; touch-action: pan-y pinch-zoom; }
-.activity-photo-full { object-fit: contain; }
-.activity-photo-dialog-caption { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 24px 22px; }
-.activity-photo-dialog-caption h4 { color: #fff; font-size: 20px; line-height: 1.4; word-break: keep-all; }
-.activity-photo-dialog-caption p { color: #c4d1d7; font-size: 13px; margin-top: 5px; line-height: 1.7; word-break: keep-all; }
-.activity-photo-dialog-caption > div > span { display: block; margin-top: 8px; color: #a5beb4; font-size: 11px; }
-.activity-photo-dialog-navigation { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-.activity-photo-dialog-navigation button { display: flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; border: 1px solid #58717f; border-radius: 6px; color: #fff; }
-.activity-photo-dialog-navigation button:hover:not(:disabled) { background: #294452; }
-.activity-photo-dialog-navigation button:disabled { opacity: .3; }
-.activity-photo-dialog-navigation span { min-width: 48px; text-align: center; color: #dbe5e9; font-size: 12px; font-variant-numeric: tabular-nums; }
 @media (max-width: 1023px) {
   .activity-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .activity-photo-dialog-caption { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .activity-photo-dialog-navigation { align-self: center; }
-  .activity-photo-dialog-image { height: clamp(180px, 52dvh, 550px); }
 }
 @media (max-width: 639px) {
   .activity-gallery-2026 { margin-bottom: 44px; }
@@ -65,10 +41,4 @@
   .activity-gallery-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .activity-photo-caption { padding: 16px; }
   .activity-photo-caption h4 { font-size: 17px; }
-  .activity-photo-dialog { width: 96vw; border-radius: 9px; }
-  .activity-photo-dialog-header { padding: 6px 10px; min-height: 54px; }
-  .activity-photo-dialog-image { height: clamp(170px, 42dvh, 420px); }
-  .activity-photo-dialog-caption { padding: 16px; gap: 14px; }
-  .activity-photo-dialog-caption h4 { font-size: 17px; }
-  .activity-photo-dialog-caption p { font-size: 12px; }
 }
