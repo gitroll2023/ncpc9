@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import "../../styles/activity-gallery.css";
 
 export const metadata: Metadata = {
   title: "나주 문화센터 열림 | 열린 문화, 함께하는 미래",

@@ -5,6 +5,7 @@ import { Calendar, ChevronRight, Sparkles } from 'lucide-react';
 import { NoticeModal } from '../ui/Modal';
 import AnimatedSection from '../ui/AnimatedSection';
 import PhotoGallery from '../ui/PhotoGallery';
+import ActivityGallery2026 from './ActivityGallery2026';
 
 interface Notice {
   category: string;
@@ -153,26 +154,23 @@ export default function NewsSection() {
           <div className="mb-10 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 mb-5 rounded-full bg-blue-50 text-[#003d7a] text-sm font-semibold">
               <Sparkles className="h-4 w-4" />
-              2026년 9월까지, 매월 이어온 열림의 기록
+              2026년, 시민과 함께 쌓아가는 열림의 기록
             </div>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">열림 활동소식</h2>
-            <p className="text-lg text-gray-600">시민과 함께 쌓아온 문화 활동을 시간순으로 전해드립니다.</p>
+            <p className="text-lg text-gray-600">시민과 함께한 문화 활동을 사진과 소식으로 전해드립니다.</p>
           </div>
 
           <div className="mb-10 rounded-2xl bg-gradient-to-r from-[#003d7a] to-[#0066cc] p-6 lg:p-8 text-white shadow-lg">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div>
                 <p className="text-blue-100 text-sm font-medium mb-2">2026 ACTIVITY ARCHIVE</p>
-                <h3 className="text-2xl lg:text-3xl font-bold text-white mb-2">멈추지 않고, 매달 시민 곁으로</h3>
-                <p className="text-white/80">1월의 운영 시작부터 9월 가을 프로그램까지 꾸준히 활동을 이어왔습니다.</p>
+                <h3 className="text-2xl lg:text-3xl font-bold text-white mb-2">문화와 배움이 일상이 되는 시간</h3>
+                <p className="text-white/80">인문학, KPI 강의, 상담소, 캠핑문화와 공방의 활동을 만나보세요.</p>
               </div>
               <div className="flex items-end gap-3 lg:pr-4">
-                <strong className="text-5xl font-bold">9</strong>
-                <span className="pb-1 text-blue-100">개월 연속 활동</span>
+                <strong className="text-5xl font-bold">5</strong>
+                <span className="pb-1 text-blue-100">가지 문화 활동</span>
               </div>
-            </div>
-            <div className="mt-6 h-2 rounded-full bg-white/20 overflow-hidden" aria-label="2026년 활동 진행률 9개월">
-              <div className="h-full w-3/4 rounded-full bg-white" />
             </div>
           </div>
 
@@ -188,6 +186,9 @@ export default function NewsSection() {
             </div>
           </div>
 
+          {selectedYear === 2026 && <ActivityGallery2026 />}
+
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">{selectedYear}년 활동소식</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredNotices.map((notice, index) => (
               <AnimatedSection key={`${notice.year}-${notice.date}`} direction="up" delay={(index % 3) * 80}>
